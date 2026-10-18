@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="tr" data-theme="cam">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kuzey Kılınç (BackSaitama) — Yazılım Geliştirici</title>
+<meta name="description" content="Kuzey Kılınç (BackSaitama): yapay zekâ ajanları, Minecraft modları ve masaüstü araçları geliştiren yazılımcı. Projeler, canlı GitHub repoları ve iletişim.">
+<meta name="author" content="Kuzey Kılınç">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://backsaitama.github.io/">
+<meta name="theme-color" content="#07080c">
+
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Kuzey Kılınç">
+<meta property="og:title" content="Kuzey Kılınç (BackSaitama) — Yazılım Geliştirici">
+<meta property="og:description" content="Yapay zekâ ajanları, Minecraft modları ve masaüstü araçları. Projeler ve canlı GitHub repoları.">
+<meta property="og:url" content="https://backsaitama.github.io/">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/168864194?v=4">
+<meta property="profile:first_name" content="Kuzey">
+<meta property="profile:last_name" content="Kılınç">
+<meta property="profile:username" content="BackSaitama">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kuzey Kılınç (BackSaitama)">
+<meta name="twitter:description" content="Yapay zekâ ajanları, Minecraft modları ve masaüstü araçları geliştiren yazılımcı.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111318'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='%23ffffff' text-anchor='middle'%3EKK%3C/text%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://backsaitama.github.io/#kuzey",
+      "name": "Kuzey Kılınç",
+      "alternateName": ["BackSaitama", "backsaitama", "backsaitamaa", "Kuzey Kilinc"],
+      "url": "https://backsaitama.github.io/",
+      "image": "https://avatars.githubusercontent.com/u/168864194?v=4",
+      "jobTitle": "Yazılım Geliştirici",
+      "description": "Yapay zekâ ajanları, Minecraft modları ve masaüstü araçları geliştiren yazılımcı.",
+      "email": "mailto:kuzeykilinc08022011@gmail.com",
+      "sameAs": ["https://github.com/BackSaitama", "https://www.instagram.com/kuzeyklnc0/"],
+      "knowsAbout": ["Yapay zekâ ajanları", "Minecraft modlama", "Python", "Kotlin", "Java", "JavaScript", "Android"]
+    },
+    {
+      "@type": "WebSite",
+      "name": "Kuzey Kılınç",
+      "alternateName": "BackSaitama is a dev",
+      "url": "https://backsaitama.github.io/",
+      "inLanguage": "tr",
+      "author": { "@id": "https://backsaitama.github.io/#kuzey" }
+    }
+  ]
+}
+</script>
+
+<script>
+  (function () {
+    var t = null;
+    try { t = new URLSearchParams(location.search).get('tema') || localStorage.getItem('tema'); } catch (e) {}
+    if (t === 'cam' || t === 'term' || t === 'bento') document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.github.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- tema değişkenleri ---------- */
+  :root, [data-theme="cam"] {
+    --bg: #07080c; --fg: #e8ecf4; --muted: #b9c0cf; --dim: #8f98ab;
+    --card: rgba(255,255,255,0.055); --card-2: rgba(255,255,255,0.08); --line: rgba(255,255,255,0.13);
+    --accent: #5b93ff; --on-accent: #ffffff;
+    --btn-bg: #f4f6fb; --btn-fg: #07080c;
+    --seg-bg: rgba(255,255,255,0.06); --seg-on: #f4f6fb; --seg-on-fg: #07080c;
+    --radius: 28px; --radius-lg: 34px; --pill: 999px;
+    --font: 'Geist'; --mono: 'Geist Mono'; --h-weight: 700; --sec-gap: 112px;
+  }
+  [data-theme="term"] {
+    --bg: #0a0a0a; --fg: #ededed; --muted: #a8a8a8; --dim: #858585;
+    --card: #0a0a0a; --card-2: #141414; --line: #262626;
+    --accent: #c6f432; --on-accent: #0a0a0a;
+    --btn-bg: #c6f432; --btn-fg: #0a0a0a;
+    --seg-bg: #141414; --seg-on: #c6f432; --seg-on-fg: #0a0a0a;
+    --radius: 0px; --radius-lg: 0px; --pill: 0px;
+    --font: 'Space Grotesk'; --mono: 'JetBrains Mono'; --h-weight: 700; --sec-gap: 104px;
+  }
+  [data-theme="bento"] {
+    --bg: #e9ecf1; --fg: #111318; --muted: #464c58; --dim: #5a606b;
+    --card: #ffffff; --card-2: #eef0f4; --line: transparent;
+    --accent: #ff8a3d; --on-accent: #111318;
+    --btn-bg: #111318; --btn-fg: #ffffff;
+    --seg-bg: #eef0f4; --seg-on: #111318; --seg-on-fg: #ffffff;
+    --radius: 28px; --radius-lg: 34px; --pill: 14px;
+    --font: 'Bricolage Grotesque'; --mono: 'IBM Plex Mono'; --h-weight: 800; --sec-gap: 64px;
+  }
+
+  /* ---------- temel ---------- */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; min-height: 100vh; overflow-x: hidden;
+    background: var(--bg); color: var(--fg);
+    font-family: var(--font), system-ui, sans-serif; line-height: 1.5;
+    transition: background-color .35s ease, color .35s ease;
+  }
+  a { color: inherit; }
+  h1, h2, h3, p { margin: 0; }
+  svg { flex-shrink: 0; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  [data-theme="cam"] .only-term, [data-theme="cam"] .only-bento,
+  [data-theme="term"] .only-cam, [data-theme="term"] .only-bento, [data-theme="term"] .not-term,
+  [data-theme="bento"] .only-cam, [data-theme="bento"] .only-term { display: none !important; }
+
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 1180px; margin: 0 auto; padding: 0 20px 64px;
+    display: flex; flex-direction: column; gap: var(--sec-gap);
+  }
+
+  /* cam teması arka plan ışıkları */
+  .glow { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .glow i { position: absolute; border-radius: 50%; }
+  .glow i:nth-child(1) { width: 620px; height: 620px; left: -180px; top: -160px; background: #3b7bff; opacity: .5; filter: blur(120px); }
+  .glow i:nth-child(2) { width: 520px; height: 520px; right: -160px; top: 30%; background: #ff7a45; opacity: .3; filter: blur(130px); }
+  .glow i:nth-child(3) { width: 560px; height: 560px; left: 25%; bottom: -260px; background: #8b5cf6; opacity: .3; filter: blur(140px); }
+
+  /* ---------- menü ---------- */
+  .nav {
+    position: sticky; top: 14px; z-index: 20; margin-top: 14px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px;
+    padding: 6px 6px 6px 20px;
+  }
+  .brand { text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.02em; padding: 10px 0; }
+  .nav-links { display: flex; flex-wrap: wrap; gap: 2px; }
+  .nav-links a { padding: 12px 14px; text-decoration: none; color: var(--muted); font-size: 15px; border-radius: var(--pill); }
+  .nav-links a:hover { color: var(--fg); }
+  .themes { display: flex; gap: 2px; padding: 3px; border-radius: var(--pill); background: var(--seg-bg); }
+  .themes button {
+    font: inherit; font-size: 13px; font-weight: 500; min-height: 38px; padding: 0 13px;
+    border: 0; border-radius: var(--pill); background: transparent; color: var(--muted); cursor: pointer;
+  }
+  .themes button:hover { color: var(--fg); }
+  .themes button[aria-pressed="true"] { background: var(--seg-on); color: var(--seg-on-fg); }
+
+  [data-theme="cam"] .nav {
+    border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+    -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  }
+  [data-theme="term"] .nav {
+    top: 0; margin-top: 0; padding: 12px 0; border-bottom: 1px solid var(--line);
+    background: rgba(10,10,10,0.9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    font-family: var(--mono), monospace;
+  }
+  [data-theme="term"] .nav-links a { font-size: 14px; padding: 12px 10px; }
+  [data-theme="term"] .nav-links a::before { content: "/"; }
+  [data-theme="term"] .themes button { font-family: var(--mono), monospace; font-size: 12px; }
+  [data-theme="bento"] .nav { margin-top: 20px; background: #ffffff; border-radius: 22px; }
+  [data-theme="bento"] .brand { font-weight: 800; font-size: 20px; }
+
+  /* ---------- giriş ---------- */
+  .hero { display: flex; flex-wrap: wrap; align-items: center; gap: 48px; padding-top: 48px; }
+  .hero-main { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+  .hero-text { display: flex; flex-direction: column; gap: 20px; }
+  .hero h1 { font-size: clamp(54px, 9vw, 112px); line-height: .92; letter-spacing: -.05em; font-weight: var(--h-weight); }
+  .acc { color: var(--accent); }
+  .lead { max-width: 600px; font-size: clamp(18px, 2vw, 21px); color: var(--muted); }
+  .lead strong { color: var(--fg); font-weight: 600; }
+  .hello { font-family: var(--mono), monospace; font-size: 14px; color: var(--accent); }
+  .chip {
+    align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px;
+    border-radius: 999px; background: var(--card-2); border: 1px solid var(--line);
+    font-family: var(--mono), monospace; font-size: 13px; color: var(--muted);
+  }
+  .live { width: 8px; height: 8px; border-radius: 50%; background: #2fd47a; box-shadow: 0 0 10px rgba(47,212,122,.8); }
+  .live.off { background: #8a8f99; box-shadow: none; }
+
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px;
+    border-radius: var(--pill); border: 1px solid transparent; text-decoration: none;
+    font: inherit; font-weight: 600; font-size: 15px; cursor: pointer; transition: transform .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn.ghost { background: var(--card-2); border-color: var(--line); color: var(--fg); }
+  [data-theme="cam"] .btn.ghost { -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-color: rgba(255,255,255,.16); }
+  [data-theme="term"] .btn { font-family: var(--mono), monospace; font-size: 14px; }
+  [data-theme="term"] .btn.ghost { background: transparent; border-color: #333333; }
+
+  .hero-side { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+  /* ---------- kartlar ---------- */
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  [data-theme="cam"] .tile {
+    -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+
+  .profile { display: flex; flex-direction: column; gap: 20px; }
+  [data-theme="cam"] .profile { border-radius: 32px; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 30px 80px rgba(0,0,0,.45); }
+  .who { display: flex; align-items: center; gap: 16px; }
+  .who strong { display: block; font-size: 18px; font-weight: 600; }
+  .who span { font-family: var(--mono), monospace; font-size: 13px; color: var(--dim); }
+  .avatar {
+    position: relative; width: 64px; height: 64px; border-radius: 20px; overflow: hidden;
+    display: grid; place-items: center; background: var(--accent); color: var(--on-accent); font-weight: 700; font-size: 22px;
+  }
+  .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .stats div { padding: 14px; border-radius: 18px; background: var(--card-2); display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .stats b { font-size: 26px; font-weight: 600; line-height: 1.2; }
+  .stats span { font-size: 12px; color: var(--dim); }
+  .sync { display: flex; align-items: center; gap: 8px; font-family: var(--mono), monospace; font-size: 12px; color: var(--dim); }
+
+  [data-theme="bento"] .hero { align-items: stretch; gap: 16px; padding-top: 0; }
+  [data-theme="bento"] .hero-main { background: #ffffff; border-radius: 32px; padding: 40px; min-height: 440px; justify-content: space-between; }
+  [data-theme="bento"] .profile { flex: 1 1 auto; background: #111318; color: #ffffff; border-radius: 32px; justify-content: space-between; }
+  [data-theme="bento"] .profile .who span, [data-theme="bento"] .profile .stats span, [data-theme="bento"] .profile .sync { color: #b8bdc8; }
+  [data-theme="bento"] .profile .stats div { background: rgba(255,255,255,0.08); }
+  .now { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-height: 180px; }
+  [data-theme="bento"] .now { background: var(--accent); border-radius: 32px; }
+  .now p { font-size: 26px; line-height: 1.15; font-weight: 600; letter-spacing: -.02em; }
+
+  /* terminal penceresi */
+  .termwin { flex: 1 1 100%; min-width: 0; max-width: 100%; border: 1px solid var(--line); background: #111111; font-family: var(--mono), monospace; font-size: 14px; }
+  .termbar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .termbar i { width: 11px; height: 11px; border-radius: 50%; background: #3a3a3a; }
+  .termbar span { margin-left: 10px; font-size: 12px; color: var(--dim); }
+  .termbody { margin: 0; padding: 20px 24px; overflow-x: auto; line-height: 1.85; font: inherit; color: var(--muted); white-space: pre; }
+  .termbody .pr { color: var(--accent); }
+  .termbody .cmd { color: var(--fg); }
+  .cursor { display: inline-block; width: 9px; height: 17px; vertical-align: -3px; background: var(--fg); animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- bölümler ---------- */
+  .sec { display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 110px; }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 24px; }
+  .eyebrow { flex-basis: 100%; font-family: var(--mono), monospace; font-size: 13px; color: var(--dim); }
+  [data-theme="cam"] .eyebrow { color: var(--accent); }
+  .sec-head h2 { font-size: clamp(34px, 4.6vw, 50px); line-height: 1.05; letter-spacing: -.035em; font-weight: var(--h-weight); }
+  .aside { font-size: 15px; color: var(--dim); }
+  .aside a { color: var(--muted); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+  [data-theme="term"] .grid { gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  [data-theme="term"] .grid > .tile { border: 0; }
+
+  .focus { display: flex; flex-direction: column; gap: 12px; }
+  .focus svg { color: var(--accent); }
+  [data-theme="bento"] .focus svg { color: var(--fg); }
+  .focus h3 { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+  .focus p { font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+  .stack { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .stack li { padding: 9px 14px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--line); font-family: var(--mono), monospace; font-size: 13px; }
+  [data-theme="term"] .stack li { border-radius: 0; background: transparent; }
+  [data-theme="bento"] .stack li { border-radius: 10px; background: #ffffff; }
+
+  /* projeler */
+  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 16px; }
+  .proj { display: flex; flex-direction: column; gap: 12px; padding: 30px; min-width: 0; }
+  .proj.featured { grid-column: 1 / -1; min-height: 300px; padding: 40px; justify-content: flex-end; }
+  .kicker { font-family: var(--mono), monospace; font-size: 12px; letter-spacing: .04em; color: var(--dim); }
+  .featured .kicker { color: var(--accent); }
+  .proj h3 { font-size: 26px; line-height: 1.1; letter-spacing: -.025em; font-weight: var(--h-weight); }
+  .proj.featured h3 { font-size: clamp(42px, 6vw, 64px); letter-spacing: -.04em; }
+  .proj p { font-size: 15.5px; line-height: 1.6; color: var(--muted); max-width: 620px; }
+  .proj.featured p { font-size: 18px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
+  .tags span { padding: 6px 12px; border-radius: 999px; background: var(--card-2); font-family: var(--mono), monospace; font-size: 12px; }
+
+  [data-theme="bento"] .proj.featured { background: #111318; color: #ffffff; }
+  [data-theme="bento"] .proj.featured h3 { color: var(--accent); }
+  [data-theme="bento"] .proj.featured p { color: #d4d8e0; }
+  [data-theme="bento"] .proj.featured .kicker { color: #b8bdc8; }
+  [data-theme="bento"] .proj.featured .tags span { background: rgba(255,255,255,0.1); }
+  [data-theme="bento"] .tags span { border-radius: 8px; }
+
+  [data-theme="term"] .projects { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
+  [data-theme="term"] .proj, [data-theme="term"] .proj.featured {
+    flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 8px 28px;
+    min-height: 0; padding: 26px 0; border: 0; border-bottom: 1px solid var(--line); background: none;
+    justify-content: flex-start;
+  }
+  [data-theme="term"] .proj .kicker { flex: 0 0 190px; color: var(--accent); }
+  [data-theme="term"] .proj h3, [data-theme="term"] .proj.featured h3 { flex: 0 0 210px; font-size: 26px; letter-spacing: -.02em; }
+  [data-theme="term"] .proj p, [data-theme="term"] .proj.featured p { flex: 1 1 300px; font-size: 16px; }
+  [data-theme="term"] .proj .tags { flex-basis: 100%; margin: 0; padding: 0 0 0 218px; gap: 14px; }
+  [data-theme="term"] .proj .tags span { padding: 0; background: none; color: var(--dim); }
+
+  /* repolar */
+  .repo { display: flex; flex-direction: column; gap: 14px; text-decoration: none; min-width: 0; transition: transform .15s ease, border-color .15s ease; }
+  .repo:hover { transform: translateY(-2px); }
+  [data-theme="cam"] .repo:hover { border-color: rgba(255,255,255,0.28); }
+  [data-theme="term"] .repo:hover { transform: none; background: #111111; }
+  .repo-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .repo-name { font-family: var(--mono), monospace; font-size: 17px; font-weight: 500; overflow-wrap: anywhere; }
+  [data-theme="term"] .repo-name::before { content: "BackSaitama/"; color: var(--dim); }
+  .stars { font-family: var(--mono), monospace; font-size: 14px; color: var(--muted); white-space: nowrap; }
+  .repo p { font-size: 15px; line-height: 1.6; color: var(--muted); }
+  .repo-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: auto; font-family: var(--mono), monospace; font-size: 12px; color: var(--dim); }
+  .lang { display: inline-flex; align-items: center; gap: 6px; }
+  .lang i { width: 10px; height: 10px; border-radius: 50%; background: #8a8f99; }
+  .note { font-family: var(--mono), monospace; font-size: 13px; color: var(--dim); }
+
+  /* iletişim */
+  .contact { gap: 22px; }
+  .contact h2 { font-size: clamp(40px, 6.5vw, 76px); line-height: .98; letter-spacing: -.045em; font-weight: var(--h-weight); }
+  .contact .lead { font-size: 18px; }
+  .copy {
+    align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px;
+    border: 0; background: none; color: var(--muted); font-family: var(--mono), monospace; font-size: 14px; cursor: pointer;
+    overflow-wrap: anywhere; text-align: left;
+  }
+  .copy:hover { color: var(--fg); }
+  .copy em { font-style: normal; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: var(--card-2); color: var(--fg); }
+
+  [data-theme="cam"] .contact {
+    align-items: center; text-align: center; padding: 64px 32px; border-radius: 36px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    -webkit-backdrop-filter: blur(30px) saturate(170%); backdrop-filter: blur(30px) saturate(170%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+  [data-theme="cam"] .contact .btns { justify-content: center; }
+  [data-theme="cam"] .contact .copy, [data-theme="cam"] .contact .eyebrow { align-self: center; flex-basis: auto; }
+  [data-theme="term"] .contact { padding-top: 56px; border-top: 1px solid var(--line); }
+  [data-theme="bento"] .contact { padding: 56px 40px; border-radius: 36px; background: var(--accent); }
+  [data-theme="bento"] .contact .acc { color: var(--fg); }
+  [data-theme="bento"] .contact .lead, [data-theme="bento"] .contact .eyebrow, [data-theme="bento"] .contact .copy { color: #2a2d33; }
+  [data-theme="bento"] .contact .btn.ghost { background: #ffffff; }
+  [data-theme="bento"] .contact .copy em { background: rgba(255,255,255,0.6); }
+
+  footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font-size: 13px; color: var(--dim); }
+  footer span:last-child { font-family: var(--mono), monospace; }
+
+  /* belirme animasyonu (saf CSS) */
+  .rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+  .rise.d1 { animation-delay: .08s; } .rise.d2 { animation-delay: .16s; } .rise.d3 { animation-delay: .24s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rise, .cursor { animation: none; }
+    .btn, .repo { transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px 48px; }
+    .nav { padding-left: 16px; }
+    .nav-links { display: none; }
+    .brand { font-size: 15px; }
+    .themes button { padding: 0 10px; }
+    [data-theme="term"] .nav { padding-left: 0; }
+    .hero { padding-top: 24px; gap: 32px; }
+    [data-theme="bento"] .hero-main { padding: 28px; min-height: 0; }
+    .tile { padding: 24px; }
+    .proj.featured { padding: 28px; min-height: 0; }
+    [data-theme="term"] .proj .tags { padding-left: 0; }
+    [data-theme="cam"] .contact, [data-theme="bento"] .contact { padding: 40px 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="glow only-cam" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<div class="wrap">
+  <nav class="nav" aria-label="Ana menü">
+    <a class="brand" href="#ust">
+      <span class="only-cam">Kuzey Kılınç</span>
+      <span class="only-term">kuzey<span class="acc">@</span>backsaitama<span style="color: var(--dim)">:~$</span></span>
+      <span class="only-bento">kuzey.</span>
+    </a>
+    <div class="nav-links">
+      <a href="#hakkimda">hakkımda</a>
+      <a href="#projeler">projeler</a>
+      <a href="#github">github</a>
+      <a href="#iletisim">iletişim</a>
+    </div>
+    <div class="themes" role="group" aria-label="Tasarım">
+      <button type="button" data-set-theme="cam" aria-pressed="true">Cam</button>
+      <button type="button" data-set-theme="term" aria-pressed="false">Terminal</button>
+      <button type="button" data-set-theme="bento" aria-pressed="false">Bento</button>
+    </div>
+  </nav>
+
+  <header id="ust" class="hero">
+    <div class="hero-main rise">
+      <span class="chip not-term"><span class="live" data-live></span>backsaitama.is-a.dev</span>
+      <div class="hero-text">
+        <span class="hello only-term">// merhaba, ben</span>
+        <h1>Kuzey<br>Kılınç<span class="acc only-term">.</span></h1>
+        <p class="lead">Yapay zekâ ajanları, Minecraft modları ve bilgisayarı kendi işini yapan araçlara çeviren yazılımlar geliştiriyorum. GitHub'da <strong>BackSaitama</strong>.</p>
+        <div class="btns">
+          <a class="btn primary" href="#projeler">Projelere bak
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn ghost" href="https://github.com/BackSaitama" rel="me">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-side not-term rise d1">
+      <div class="tile profile">
+        <div class="who">
+          <div class="avatar" aria-hidden="true">KK<img id="avatar" src="https://avatars.githubusercontent.com/u/168864194?v=4" alt="" width="64" height="64" onerror="this.remove()"></div>
+          <div><strong>Kuzey Kılınç</strong><span>@BackSaitama</span></div>
+        </div>
+        <div class="stats">
+          <div><b id="st-repos">2</b><span>açık repo</span></div>
+          <div><b id="st-stars">1</b><span>yıldız</span></div>
+          <div><b id="st-since">2024</b><span>'ten beri</span></div>
+        </div>
+        <div class="sync"><span class="live" data-live></span><span data-sync>GitHub'dan canlı</span></div>
+      </div>
+      <div class="tile now only-bento">
+        <span class="kicker">ŞU AN</span>
+        <p>ULTAN ve Claude Remote üzerinde çalışıyorum.</p>
+      </div>
+    </div>
+
+    <div class="termwin only-term rise d1">
+      <div class="termbar" aria-hidden="true"><i></i><i></i><i></i><span>~/kuzey — bash</span></div>
+      <pre class="termbody" id="termbody"></pre>
+    </div>
+  </header>
+
+  <section id="hakkimda" class="sec">
+    <div class="sec-head">
+      <span class="eyebrow">01 — hakkımda</span>
+      <h2>Ne yapıyorum</h2>
+    </div>
+    <div class="grid">
+      <div class="tile focus">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9.5 9.5h5v5h-5zM9 2v3M15 2v3M9 19v3M15 19v3M19 9h3M19 15h3M2 9h3M2 15h3"/></svg>
+        <h3>Yapay zekâ ajanları</h3>
+        <p>Bilgisayarı ve telefonu Telegram'dan yöneten, sesle uyanan, işi kendi kendine bölen asistanlar.</p>
+      </div>
+      <div class="tile focus">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></svg>
+        <h3>Minecraft modları</h3>
+        <p>Fabric ve Forge ile Portal Gun, Yerçekimi Anahtarı ve Minecraft × ETB gibi oynanışı değiştiren modlar.</p>
+      </div>
+      <div class="tile focus">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="3"/><path d="M8 22h8M12 18v4M7 9l3 2-3 2M12 13h5"/></svg>
+        <h3>Masaüstü araçları</h3>
+        <p>Dairesel kısayol menüsü, anlık tekrar kaydedici, telefondan uzaktan erişim gibi günlük işi kolaylaştıran araçlar.</p>
+      </div>
+    </div>
+    <ul class="stack" aria-label="Kullandığım teknolojiler">
+      <li>Python</li><li>JavaScript</li><li>Java · Fabric · Forge</li><li>Kotlin · Android</li><li>Swift</li><li>PySide6</li><li>Three.js</li><li>Electron</li>
+    </ul>
+  </section>
+
+  <section id="projeler" class="sec">
+    <div class="sec-head">
+      <span class="eyebrow">02 — projeler</span>
+      <h2>Öne çıkanlar</h2>
+      <span class="aside">Bilgisayarımda yaşayan projeler</span>
+    </div>
+    <div class="projects">
+      <article class="tile proj featured">
+        <span class="kicker">001 · ASİSTAN</span>
+        <h3>ULTAN</h3>
+        <p>"Hey ultan" ile uyanan, bilgisayarı ve telefonu yöneten, işleri kendi yapay zekâ ekibine bölen ve Obsidian'da hafıza tutan kişisel asistan.</p>
+        <div class="tags"><span>Python</span><span>Vosk</span><span>Android</span></div>
+      </article>
+      <article class="tile proj">
+        <span class="kicker">002 · UZAKTAN ERİŞİM</span>
+        <h3>Claude Remote</h3>
+        <p>Telefondan bilgisayara canlı masaüstü, dosyalar, proje derleme ve Claude Desktop erişimi. Hesap istemeyen tünelle internetten de bağlanır.</p>
+        <div class="tags"><span>Kotlin</span><span>Python</span><span>Android</span></div>
+      </article>
+      <article class="tile proj">
+        <span class="kicker">003 · OYUN MODU</span>
+        <h3>Minecraft × ETB</h3>
+        <p>Gerçek Minecraft'ı Escape the Backrooms'un içinde çalıştıran passthrough modu; arkadaşlarla çok oyunculu oynanır.</p>
+        <div class="tags"><span>Java</span><span>Fabric</span><span>Çok oyunculu</span></div>
+      </article>
+      <article class="tile proj">
+        <span class="kicker">004 · MASAÜSTÜ</span>
+        <h3>Orbix</h3>
+        <p>Alt+Shift basılı tutunca imlecin etrafında açılan dairesel kısayol menüsü. Eklenti destekli, Windows ve Linux'ta çalışır.</p>
+        <div class="tags"><span>Python</span><span>PySide6</span></div>
+      </article>
+      <article class="tile proj">
+        <span class="kicker">005 · SİMÜLASYON</span>
+        <h3>Kelebekler</h3>
+        <p>Gerçek FlyWire sinek beyni (138 bin nöron) bir kelebek bedenini uçuruyor.</p>
+        <div class="tags"><span>JavaScript</span><span>Nörobilim</span></div>
+      </article>
+      <article class="tile proj">
+        <span class="kicker">006 · ARAÇ</span>
+        <h3>Zedal</h3>
+        <p>Medal tarzı anlık tekrar kaydedici: son saniyeleri tek tuşla klibe çevirir.</p>
+        <div class="tags"><span>Python</span><span>FFmpeg</span><span>NVENC</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="github" class="sec">
+    <div class="sec-head">
+      <span class="eyebrow">03 — github / canlı</span>
+      <h2>GitHub'dan canlı</h2>
+      <span class="aside"><a href="https://github.com/BackSaitama?tab=repositories">Tüm repolar →</a></span>
+    </div>
+    <div class="grid" id="repos">
+      <a class="tile repo" href="https://github.com/BackSaitama/Hullar-Agent">
+        <div class="repo-top"><span class="repo-name">Hullar-Agent</span><span class="stars">★ 1</span></div>
+        <p>Control your Windows PC from anywhere via Telegram — 288+ skills, screen vision, offline AI. Türkçe destekli.</p>
+        <div class="repo-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span>9 Tem 2026</span></div>
+      </a>
+      <a class="tile repo" href="https://github.com/BackSaitama/ios-odev">
+        <div class="repo-top"><span class="repo-name">ios-odev</span><span class="stars">★ 0</span></div>
+        <p>Okul iOS ödevi: Swift uygulamaları</p>
+        <div class="repo-meta"><span class="lang"><i style="background:#F05138"></i>Swift</span><span>14 Eki 2026</span></div>
+      </a>
+    </div>
+    <p class="note"><span data-sync>Yeni bir repo açtığımda burada kendiliğinden belirir.</span></p>
+  </section>
+
+  <section id="iletisim" class="sec contact">
+    <span class="eyebrow">04 — iletişim</span>
+    <h2>Bir fikrin mi var?<br><span class="acc">Yaz bana.</span></h2>
+    <p class="lead">Bir proje, bir hata ya da bir soru; e-postadan ya da Instagram'dan ulaşabilirsin.</p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:kuzeykilinc08022011@gmail.com">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+        E-posta gönder
+      </a>
+      <a class="btn ghost" href="https://www.instagram.com/kuzeyklnc0/" rel="me">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>
+        @kuzeyklnc0
+      </a>
+      <a class="btn ghost" href="https://github.com/BackSaitama" rel="me">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+        BackSaitama
+      </a>
+    </div>
+    <button type="button" class="copy" id="copy-mail">kuzeykilinc08022011@gmail.com <em id="copy-label">kopyala</em></button>
+  </section>
+
+  <footer>
+    <span>© 2026 Kuzey Kılınç · BackSaitama is a dev</span>
+    <span>backsaitama.is-a.dev</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var THEME_COLOR = { cam: '#07080c', term: '#0a0a0a', bento: '#e9ecf1' };
+
+  /* ---------- tema ---------- */
+  function setTheme(t, save) {
+    if (!THEME_COLOR[t]) t = 'cam';
+    root.setAttribute('data-theme', t);
+    document.querySelectorAll('[data-set-theme]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-set-theme') === t));
+    });
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', THEME_COLOR[t]);
+    if (save) { try { localStorage.setItem('tema', t); } catch (e) {} }
+  }
+  document.querySelectorAll('[data-set-theme]').forEach(function (b) {
+    b.addEventListener('click', function () { setTheme(b.getAttribute('data-set-theme'), true); });
+  });
+  setTheme(root.getAttribute('data-theme'), false);
+
+  /* ---------- e-posta kopyala ---------- */
+  var MAIL = 'kuzeykilinc08022011@gmail.com';
+  document.getElementById('copy-mail').addEventListener('click', function () {
+    var label = document.getElementById('copy-label');
+    function done() { label.textContent = 'kopyalandı'; setTimeout(function () { label.textContent = 'kopyala'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(MAIL).then(done, function () { location.href = 'mailto:' + MAIL; });
+    } else { location.href = 'mailto:' + MAIL; }
+  });
+
+  /* ---------- GitHub canlı eşitleme ---------- */
+  var USER = 'BackSaitama';
+  var KEY = 'gh-onbellek-v1';
+  var TTL = 10 * 60 * 1000;
+  var LANG = {
+    Python: '#3572A5', Swift: '#F05138', JavaScript: '#f1e05a', TypeScript: '#3178c6', Java: '#b07219',
+    Kotlin: '#A97BFF', HTML: '#e34c26', CSS: '#663399', 'C#': '#178600', 'C++': '#f34b7d', C: '#555555',
+    Lua: '#000080', Luau: '#00A2FF', Shell: '#89e051', PowerShell: '#012456', Batchfile: '#C1F12E',
+    Go: '#00ADD8', Rust: '#dea584', GDScript: '#355570', Dart: '#00B4AB'
+  };
+  var FALLBACK = {
+    user: { public_repos: 2, followers: 2, created_at: '2024-05-03T19:23:06Z', avatar_url: 'https://avatars.githubusercontent.com/u/168864194?v=4' },
+    repos: [
+      { name: 'ios-odev', description: 'Okul iOS ödevi: Swift uygulamaları', language: 'Swift', stars: 0, pushed: '2026-10-14T00:00:00Z', url: 'https://github.com/BackSaitama/ios-odev' },
+      { name: 'Hullar-Agent', description: 'Control your Windows PC from anywhere via Telegram — 288+ skills, screen vision, offline AI. Türkçe destekli.', language: 'Python', stars: 1, pushed: '2026-07-09T00:00:00Z', url: 'https://github.com/BackSaitama/Hullar-Agent' }
+    ]
+  };
+
+  var dateFmt = new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'short', year: 'numeric' });
+  var rel = window.Intl && Intl.RelativeTimeFormat ? new Intl.RelativeTimeFormat('tr', { numeric: 'auto' }) : null;
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function ago(ts) {
+    var min = Math.round((Date.now() - ts) / 60000);
+    if (!rel) return '';
+    if (min < 1) return 'az önce';
+    if (min < 60) return rel.format(-min, 'minute');
+    return rel.format(-Math.round(min / 60), 'hour');
+  }
+  function setSync(ok, ts) {
+    document.querySelectorAll('[data-live]').forEach(function (d) { d.classList.toggle('off', !ok); });
+    var txt = ok ? 'GitHub\'dan canlı · ' + ago(ts) + ' eşitlendi' : 'Çevrimdışı · son bilinen repolar gösteriliyor';
+    document.querySelectorAll('[data-sync]').forEach(function (s) { s.textContent = txt; });
+  }
+
+  function render(data) {
+    var repos = data.repos.slice().sort(function (a, b) { return new Date(b.pushed) - new Date(a.pushed); });
+    var stars = repos.reduce(function (s, r) { return s + (r.stars || 0); }, 0);
+    var since = new Date(data.user.created_at).getFullYear();
+
+    document.getElementById('st-repos').textContent = data.user.public_repos;
+    document.getElementById('st-stars').textContent = stars;
+    document.getElementById('st-since').textContent = since;
+
+    var box = document.getElementById('repos');
+    var cards = repos.slice(0, 9).map(function (r) {
+      var a = el('a', 'tile repo');
+      a.href = r.url;
+      var top = el('div', 'repo-top');
+      top.appendChild(el('span', 'repo-name', r.name));
+      top.appendChild(el('span', 'stars', '★ ' + (r.stars || 0)));
+      a.appendChild(top);
+      a.appendChild(el('p', null, r.description || 'Açıklama henüz yok.'));
+      var meta = el('div', 'repo-meta');
+      if (r.language) {
+        var lang = el('span', 'lang');
+        var dot = el('i');
+        dot.style.background = LANG[r.language] || '#8a8f99';
+        lang.appendChild(dot);
+        lang.appendChild(document.createTextNode(r.language));
+        meta.appendChild(lang);
+      }
+      meta.appendChild(el('span', null, dateFmt.format(new Date(r.pushed))));
+      a.appendChild(meta);
+      return a;
+    });
+    box.replaceChildren.apply(box, cards);
+
+    // terminal penceresi
+    var t = document.getElementById('termbody');
+    var lines = [];
+    function cmd(c) { var l = el('span'); l.appendChild(el('span', 'pr', '$ ')); l.appendChild(el('span', 'cmd', c)); lines.push(l); }
+    function out(o) { lines.push(el('span', null, o)); }
+    cmd('whoami');
+    out('Kuzey Kılınç · BackSaitama · yazılım geliştirici');
+    cmd('cat istatistik');
+    out(data.user.public_repos + ' açık repo · ★' + stars + ' · ' + since + '\'ten beri GitHub\'da');
+    cmd('gh repo list ' + USER);
+    repos.slice(0, 6).forEach(function (r) {
+      out(r.name.padEnd(18) + ' ' + (r.language || '-').padEnd(11) + ' ★' + String(r.stars || 0).padEnd(4) + new Date(r.pushed).toISOString().slice(0, 10));
+    });
+    var last = el('span');
+    last.appendChild(el('span', 'pr', '$ '));
+    last.appendChild(el('span', 'cursor'));
+    lines.push(last);
+    t.replaceChildren();
+    lines.forEach(function (l, i) { if (i) t.appendChild(document.createTextNode('\n')); t.appendChild(l); });
+  }
+
+  function readCache() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
+
+  var cache = readCache();
+  render(cache && cache.data ? cache.data : FALLBACK);
+  if (cache && Date.now() - cache.ts < TTL) { setSync(true, cache.ts); return; }
+
+  Promise.all([
+    fetch('https://api.github.com/users/' + USER, { headers: { Accept: 'application/vnd.github+json' } }),
+    fetch('https://api.github.com/users/' + USER + '/repos?per_page=100&sort=pushed', { headers: { Accept: 'application/vnd.github+json' } })
+  ]).then(function (res) {
+    if (!res[0].ok || !res[1].ok) throw new Error('GitHub ' + res[0].status + '/' + res[1].status);
+    return Promise.all([res[0].json(), res[1].json()]);
+  }).then(function (j) {
+    var user = j[0];
+    var data = {
+      user: { public_repos: user.public_repos, followers: user.followers, created_at: user.created_at, avatar_url: user.avatar_url },
+      repos: j[1].filter(function (r) { return !r.fork && !r.archived; }).map(function (r) {
+        return { name: r.name, description: r.description, language: r.language, stars: r.stargazers_count, pushed: r.pushed_at, url: r.html_url };
+      })
+    };
+    var now = Date.now();
+    try { localStorage.setItem(KEY, JSON.stringify({ ts: now, data: data })); } catch (e) {}
+    render(data);
+    setSync(true, now);
+  }).catch(function () {
+    setSync(false);
+  });
+})();
+</script>
+</body>
+</html>
