@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Poliçe Defterim</title>
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B5A6E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Poliçelerim">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<style>
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+[hidden]{display:none!important}
+/* Layout: phone-first single column with a fixed bottom bar; from 900px the bar becomes a left rail and detail/forms open as a right-hand panel. */
+:root{
+  --bg:#F2F5F5; --surface:#FFFFFF; --ink:#11201F; --muted:#586B6B; --line:#DBE3E3;
+  --accent:#0B5A6E; --accent-ink:#FFFFFF; --accent-soft:#DCEEF2;
+  --ok:#1B7A49; --ok-soft:#DDF1E5; --warn:#A55A06; --warn-soft:#FBEBD2; --crit:#B3261E; --crit-soft:#FADDDA;
+  --ai:#6B4FA8; --ai-soft:#ECE6F8; --shade:rgba(10,25,28,.45);
+  --display:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif; --text:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+  --r:14px; --nav-h:68px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0D1517; --surface:#162125; --ink:#E5EEED; --muted:#93A6A5; --line:#27363B;
+  --accent:#63C6DD; --accent-ink:#05262E; --accent-soft:#153842;
+  --ok:#5ED091; --ok-soft:#143524; --warn:#F0B55E; --warn-soft:#3A2A10; --crit:#F28D84; --crit-soft:#41201D;
+  --ai:#B9A3EE; --ai-soft:#2A2340; --shade:rgba(0,0,0,.6); color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0D1517; --surface:#162125; --ink:#E5EEED; --muted:#93A6A5; --line:#27363B;
+  --accent:#63C6DD; --accent-ink:#05262E; --accent-soft:#153842;
+  --ok:#5ED091; --ok-soft:#143524; --warn:#F0B55E; --warn-soft:#3A2A10; --crit:#F28D84; --crit-soft:#41201D;
+  --ai:#B9A3EE; --ai-soft:#2A2340; --shade:rgba(0,0,0,.6); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 var(--text);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+input,select,textarea{font-size:16px}
+.install{background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:10px 12px;font-size:13.5px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:26px} h2{font-size:19px} h3{font-size:15px}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+main{max-width:760px;margin:0 auto;padding-block:20px calc(var(--nav-h) + 40px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{display:flex;flex-direction:column;gap:14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top h1{color:var(--accent)}
+.iconbtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface)}
+.iconbtn.plain{border-color:transparent;background:transparent}
+
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;gap:6px;
+  background:var(--surface);border-top:1px solid var(--line);
+  padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.nav .brand{display:none}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:12px;
+  color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:500}
+.nav a[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
+.fab{flex:none;display:inline-flex;align-items:center;gap:8px;height:48px;min-width:48px;justify-content:center;border-radius:24px;border:0;
+  background:var(--accent);color:var(--accent-ink);font-weight:600;padding:0 14px}
+.fab span{display:none}
+
+.notice{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:13.5px}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:0 12px;color:var(--muted)}
+.search:focus-within{border-color:var(--accent)}
+.search input{flex:1;min-width:0;border:0;background:transparent;padding:12px 0;outline:0;color:var(--ink)}
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.tools #count{margin-right:auto;color:var(--muted);font-size:13.5px}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;max-width:100%}
+.pill.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.bulk{display:flex;align-items:center;gap:8px;background:var(--accent-soft);border-radius:12px;padding:8px 12px}
+.bulk span{margin-right:auto;font-weight:500}
+
+#list{display:flex;flex-direction:column;gap:10px}
+.card{display:grid;grid-template-columns:1fr auto;gap:4px 10px;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);padding:13px 14px}
+.card:hover{border-color:var(--accent)}
+.card.sel{border-color:var(--accent);background:var(--accent-soft)}
+.card .nm{font-weight:600;min-width:0;overflow-wrap:anywhere}
+.card .sub{grid-column:1/-1;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.card .sub b{color:var(--ink);font-weight:500}
+.badge{align-self:start;font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.badge.ok{background:var(--ok-soft);color:var(--ok)} .badge.warn{background:var(--warn-soft);color:var(--warn)}
+.badge.crit{background:var(--crit-soft);color:var(--crit)} .badge.none{background:var(--line);color:var(--muted)}
+.tag{font-size:11px;border:1px dashed var(--muted);color:var(--muted);border-radius:6px;padding:1px 6px;margin-left:6px;font-weight:500}
+
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:28px 20px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.empty p{margin:0;color:var(--muted);max-width:44ch}
+.row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:10px 14px;font-weight:600;text-decoration:none;color:var(--ink)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--crit);border-color:var(--crit-soft)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.55;cursor:default}
+
+/* stats */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;min-width:0}
+.kpi small{display:block;color:var(--muted);font-size:12.5px}
+.kpi strong{font:700 22px var(--display);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:76px 1fr 34px;align-items:center;gap:10px;font-size:13.5px}
+.bar i{display:block;height:10px;border-radius:5px;background:var(--accent);min-width:2px}
+.bar .trk{background:var(--bg);border-radius:5px}
+.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.mini{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:6px 0;border-top:1px solid var(--line)}
+.mini:first-of-type{border-top:0}
+.mini span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* assistant */
+#chat{display:flex;flex-direction:column;gap:10px;min-height:120px}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px}
+.msg.ai{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.err{align-self:flex-start;background:var(--crit-soft);color:var(--crit)}
+#chips{display:flex;flex-wrap:wrap;gap:8px}
+.ask{position:sticky;bottom:calc(var(--nav-h) + 12px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;background:var(--bg);padding:8px 0}
+.ask input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:11px 12px}
+.ask input:focus{border-color:var(--accent);outline:0}
+
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:40;background:var(--shade);display:flex;justify-content:flex-end}
+.sheet-panel{background:var(--bg);width:100%;height:100%;display:flex;flex-direction:column;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet-head{display:flex;align-items:center;gap:6px;padding:10px max(10px,env(safe-area-inset-right,0px)) 10px max(10px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.sheet-head h2{flex:1;min-width:0}
+#sheetActions{display:flex;gap:2px}
+#sheetBody{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-block:16px 28px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dl{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:4px 14px}
+.dl div{padding:10px 0;border-top:1px solid var(--line)}
+.dl div:first-child{border-top:0}
+.dl small{display:block;color:var(--muted);font-size:12px}
+.dl span{font-weight:500;overflow-wrap:anywhere}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:9px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--accent-soft);color:var(--accent)}
+.up{background:var(--surface);border:1.5px dashed var(--line);border-radius:var(--r);padding:26px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.up.drag{border-color:var(--accent);background:var(--accent-soft)}
+.up p{margin:0;color:var(--muted);font-size:13.5px}
+.hint{display:flex;gap:8px;background:var(--ai-soft);color:var(--ai);border-radius:12px;padding:10px 12px;font-size:13.5px}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--ai-soft);border-top-color:var(--ai);animation:sp 0.8s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}}
+form.pf{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fld{display:flex;flex-direction:column;gap:4px;min-width:0;grid-column:1/-1}
+.fld.half{grid-column:auto}
+.fld label{font-size:12.5px;color:var(--muted)}
+.fld input,.fld select,.fld textarea{width:100%;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 11px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--accent);outline:0}
+.fld .ai{border-color:var(--ai);background:var(--ai-soft)}
+.pf .full{grid-column:1/-1}
+.file{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.file span{flex:1;min-width:0;overflow-wrap:anywhere;font-size:13.5px}
+
+.modal{position:fixed;inset:0;z-index:60;background:var(--shade);display:grid;place-items:end center;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.modal-card{background:var(--surface);border-radius:18px;padding:18px;width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px}
+.modal-card p{margin:0;color:var(--muted)}
+.modal-card pre{margin:0;white-space:pre-wrap;font:13px/1.5 var(--text);background:var(--bg);border-radius:10px;padding:10px;max-height:180px;overflow:auto;user-select:all}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + 24px + env(safe-area-inset-bottom,0px));z-index:80;background:var(--ink);color:var(--bg);
+  padding:10px 16px;border-radius:999px;font-weight:500;max-width:calc(100% - 32px);text-align:center}
+
+@media (min-width:900px){
+  :root{--nav-h:0px}
+  .nav{top:0;right:auto;bottom:0;width:220px;flex-direction:column;align-items:stretch;border-top:0;border-right:1px solid var(--line);padding:22px 14px;gap:6px}
+  .nav .brand{display:block;font:700 19px var(--display);color:var(--accent);padding:0 8px 14px}
+  .nav a{flex:none;flex-direction:row;gap:10px;font-size:14.5px;padding:10px}
+  .fab{margin-top:10px;border-radius:12px} .fab span{display:inline}
+  main{margin-left:calc(220px + (100% - 220px - 760px)/2);margin-right:0;padding-block:28px 40px}
+  .top h1{color:var(--ink)}
+  .kpis{grid-template-columns:repeat(4,1fr)}
+  .sheet-panel{width:480px;border-left:1px solid var(--line)}
+  .modal{place-items:center}
+  .ask{bottom:12px}
+}
+@media (min-width:900px) and (max-width:1010px){ main{margin-left:220px;max-width:none} }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.3l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2.2-1.3L14 3h-4l-.4 2.5a7 7 0 0 0-2.2 1.3l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.6l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2.2 1.3L10 21h4l.4-2.5a7 7 0 0 0 2.2-1.3l2.3 1 2-3.4-2-1.5c.1-.4.1-.9.1-1.3z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4M5 21h14"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4M5 20h14"/></symbol>
+</svg>
+
+<nav class="nav" aria-label="Bölümler">
+  <div class="brand">Poliçe Defterim</div>
+  <a href="#policeler" data-tab="policeler"><svg class="ic"><use href="#i-doc"/></svg>Poliçeler</a>
+  <a href="#analizler" data-tab="analizler"><svg class="ic"><use href="#i-chart"/></svg>Analizler</a>
+  <a href="#asistan" data-tab="asistan"><svg class="ic"><use href="#i-spark"/></svg>Sorgular</a>
+  <button class="fab" id="addBtn" type="button" aria-label="Yeni poliçe ekle"><svg class="ic"><use href="#i-plus"/></svg><span>Yeni poliçe</span></button>
+</nav>
+
+<main>
+  <section id="v-policeler">
+    <div class="top"><h1>Poliçe Defterim</h1>
+      <button class="iconbtn" id="settingsBtn" type="button" aria-label="Ayarlar"><svg class="ic"><use href="#i-gear"/></svg></button></div>
+    <div class="notice" id="notice" hidden></div>
+    <div class="install" id="install" hidden></div>
+    <label class="search"><svg class="ic"><use href="#i-search"/></svg>
+      <input id="q" type="search" placeholder="Müşteri, plaka veya poliçe no ara" autocomplete="off" aria-label="Poliçe ara"></label>
+    <div class="tools">
+      <span id="count"></span>
+      <button class="pill" id="selBtn" type="button">Seç</button>
+      <select class="pill" id="fType" aria-label="Türe göre filtrele"></select>
+      <select class="pill" id="fStatus" aria-label="Duruma göre filtrele">
+        <option value="">Tüm durumlar</option><option value="ok">Aktif</option><option value="warn">Yakında bitiyor</option><option value="crit">Süresi doldu</option></select>
+      <select class="pill" id="sort" aria-label="Sırala">
+        <option value="end">Bitişe göre</option><option value="name">Ada göre</option><option value="new">Son eklenen</option><option value="premium">Prime göre</option></select>
+    </div>
+    <div class="bulk" id="bulk" hidden><span id="bulkCount"></span>
+      <button class="btn danger" id="bulkDel" type="button">Sil</button><button class="btn" id="bulkCancel" type="button">Vazgeç</button></div>
+    <div id="list"></div>
+  </section>
+
+  <section id="v-analizler" hidden>
+    <div class="top"><h1>Analizler</h1></div>
+    <div id="stats"></div>
+  </section>
+
+  <section id="v-asistan" hidden>
+    <div class="top"><h1>Sorgular</h1></div>
+    <div id="chips"></div>
+    <div id="chat"></div>
+  </section>
+</main>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head">
+      <button class="iconbtn plain" id="sheetBack" type="button" aria-label="Geri"><svg class="ic"><use href="#i-back"/></svg></button>
+      <h2 id="sheetTitle"></h2><div id="sheetActions"></div>
+    </div>
+    <div id="sheetBody"></div>
+  </div>
+</div>
+<div class="modal" id="modal" hidden><div class="modal-card" id="modalCard" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="pdf.min.js"></script>
+</body>
+</html>
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ic = n => `<svg class="ic"><use href="#i-${n}"/></svg>`;
+const TYPES = ['Kasko','Trafik','DASK','Konut','Sağlık','İşyeri','Seyahat','Diğer'];
+const MONTHS = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+const LS_KEY = 'pd_policies_v1';
+
+/* ---------- dates, money ---------- */
+const today = () => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
+const pd = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? new Date(+m[1], m[2]-1, +m[3]) : null; };
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const fmtDate = s => { const d = pd(s); return d ? `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}` : '—'; };
+const daysLeft = p => { const d = pd(p.end); return d ? Math.round((d - today()) / 864e5) : null; };
+const money = n => (typeof n === 'number' && isFinite(n)) ? new Intl.NumberFormat('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}).format(n) + ' ₺' : '—';
+function parseMoney(v) {
+  if (typeof v === 'number') return isFinite(v) ? v : null;
+  let s = String(v ?? '').replace(/[^\d.,-]/g, '');
+  if (!s) return null;
+  if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
+  else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+  const n = parseFloat(s); return isFinite(n) ? n : null;
+}
+function status(p) {
+  const d = daysLeft(p);
+  if (d === null) return {key:'none', label:'Tarih yok'};
+  if (d < 0) return {key:'crit', label:'Süresi doldu'};
+  if (d <= 30) return {key:'warn', label: d === 0 ? 'Bugün bitiyor' : `${d} gün kaldı`};
+  return {key:'ok', label:'Aktif'};
+}
+const low = s => String(s ?? '').toLocaleLowerCase('tr');
+
+/* ---------- state & storage ---------- */
+const st = {loaded:false, mode:'', selecting:false, selected:new Set(), tab:'policeler'};
+const newId = () => 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const idb = {
+  db:null,
+  open() { return new Promise((res, rej) => {
+    const r = indexedDB.open('police-defterim', 1);
+    r.onupgradeneeded = () => { r.result.createObjectStore('policies', {keyPath:'id'}); r.result.createObjectStore('files', {keyPath:'id'}); };
+    r.onsuccess = () => { idb.db = r.result; res(); }; r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error('blocked'));
+  }); },
+  tx(store, mode, fn) { return new Promise((res, rej) => {
+    const t = idb.db.transaction(store, mode), rq = fn(t.objectStore(store));
+    t.oncomplete = () => res(rq && rq.result); t.onerror = t.onabort = () => rej(t.error);
+  }); },
+  all: s => idb.tx(s, 'readonly', o => o.getAll()), get: (s, k) => idb.tx(s, 'readonly', o => o.get(k)),
+  put: (s, v) => idb.tx(s, 'readwrite', o => o.put(v)), del: (s, k) => idb.tx(s, 'readwrite', o => o.delete(k)),
+};
+const touch = () => matchMedia('(pointer:coarse)').matches;
+// Hands a file to the phone's share sheet (WhatsApp, Mail, Dosyalar'a Kaydet); on a computer it downloads.
+async function saveFile(file, text) {
+  if (touch() && navigator.canShare && navigator.canShare({files:[file]})) {
+    try { await navigator.share(text ? {files:[file], text} : {files:[file]}); return; }
+    catch (e) { if (e && e.name === 'AbortError') throw {code:'declined'}; }
+  }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = file.name;
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+}
+const cap = {
+  assets: {
+    async upload(file, o) { const id = newId(); await idb.put('files', {id, buf: await file.arrayBuffer(), type: o.type, name: file.name}); return {id}; },
+    delete: id => idb.del('files', id),
+  },
+  downloads: { save: ({filename, data}) => saveFile(new File([data], filename, {type: /\.csv$/.test(filename) ? 'text/csv' : 'application/json'})) },
+};
+let policies = [], col = null;
+
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 2600);
+}
+async function savePolicy(id, data) {
+  const rec = {...data, id: id || newId()};
+  if (st.mode === 'idb') await idb.put('policies', rec);
+  const i = policies.findIndex(p => p.id === rec.id);
+  if (i >= 0) policies[i] = rec; else policies.push(rec);
+  renderAll(); return rec.id;
+}
+async function removePolicy(p) {
+  if (st.mode === 'idb') await idb.del('policies', p.id);
+  policies = policies.filter(x => x.id !== p.id); renderAll();
+  if (p.fileId && cap.assets) cap.assets.delete(p.fileId).catch(() => {});
+}
+const writeErr = e => toast(e && e.name === 'QuotaExceededError' ? 'Telefonun depolama alanı doldu. Eski poliçeleri veya dosyaları silin.' : 'Kaydedilemedi. Yeniden deneyin.');
+
+async function boot() {
+  renderAll();
+  try { await idb.open(); policies = (await idb.all('policies')) || []; st.mode = 'idb'; }
+  catch { st.mode = 'mem'; cap.assets = null; }
+  st.loaded = true; renderAll(); setupQueries();
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+/* ---------- list ---------- */
+function visible() {
+  const q = low($('#q').value.trim()), ft = $('#fType').value, fs = $('#fStatus').value, so = $('#sort').value;
+  let a = policies.filter(p => {
+    if (ft && p.type !== ft) return false;
+    if (fs && status(p).key !== fs) return false;
+    if (!q) return true;
+    return [p.name, p.policyNo, p.company, p.plate, p.type].some(v => low(v).includes(q));
+  });
+  const cmp = {
+    end: (x, y) => (x.end || '9999').localeCompare(y.end || '9999'),
+    name: (x, y) => String(x.name).localeCompare(String(y.name), 'tr'),
+    new: (x, y) => (y.createdAt || 0) - (x.createdAt || 0),
+    premium: (x, y) => (y.premium || 0) - (x.premium || 0),
+  }[so];
+  return a.sort(cmp);
+}
+function renderList() {
+  const n = $('#notice');
+  const msg = st.mode === 'mem' ? 'Bu tarayıcı kayıt saklamaya izin vermiyor (gizli sekme olabilir). Eklediğiniz poliçeler sayfa kapanınca silinir.' : '';
+  const ins = $('#install'), standalone = navigator.standalone || matchMedia('(display-mode: standalone)').matches;
+  ins.hidden = standalone || !/iPhone|iPad|iPod/.test(navigator.userAgent);
+  ins.textContent = 'iPhone\'a kurmak için Safari\'de alttaki Paylaş düğmesine, sonra "Ana Ekrana Ekle"ye dokunun. Kurulunca internetsiz çalışır.';
+  n.textContent = msg; n.hidden = !msg;
+
+  const list = $('#list'), a = visible();
+  $('#count').textContent = st.loaded ? `Toplam ${a.length} poliçe` : '';
+  $('#selBtn').classList.toggle('on', st.selecting);
+  $('#bulk').hidden = !st.selecting;
+  $('#bulkCount').textContent = `${st.selected.size} seçildi`;
+  $('#bulkDel').disabled = !st.selected.size;
+
+  if (!st.loaded) { list.innerHTML = `<div class="empty"><div class="spin"></div><p>Poliçeler yükleniyor…</p></div>`; return; }
+  if (!policies.length) {
+    list.innerHTML = `<div class="empty"><h2>Henüz poliçe yok</h2>
+      <p>Bir poliçe PDF'i yükleyin, içindeki bilgiler otomatik doldurulsun. İsterseniz elle de ekleyebilir ya da uygulamayı örnek poliçelerle deneyebilirsiniz.</p>
+      <div class="row"><button class="btn pri" data-act="add-pdf">${ic('up')}PDF ile ekle</button>
+      <button class="btn" data-act="add-man">Elle ekle</button><button class="btn" data-act="samples">Örnek poliçeleri yükle</button></div></div>`;
+    return;
+  }
+  if (!a.length) { list.innerHTML = `<div class="empty"><p>Bu aramaya veya filtreye uyan poliçe yok.</p><button class="btn" data-act="clear">Filtreleri temizle</button></div>`; return; }
+  list.innerHTML = a.map(p => { const s = status(p); return `
+    <button class="card${st.selected.has(p.id) ? ' sel' : ''}" type="button" data-id="${esc(p.id)}">
+      <span class="nm">${esc(p.name || 'İsimsiz')}${p.sample ? '<span class="tag">Örnek</span>' : ''}</span>
+      <span class="badge ${s.key}">${esc(s.label)}</span>
+      <span class="sub"><b>${esc(p.type || 'Diğer')}</b> · ${esc(p.company || 'Şirket belirtilmedi')}${p.plate ? ' · ' + esc(p.plate) : ''}</span>
+      <span class="sub">Bitiş: ${esc(fmtDate(p.end))}</span>
+    </button>`; }).join('');
+}
+
+/* ---------- stats ---------- */
+function renderStats() {
+  const el = $('#stats');
+  if (!policies.length) { el.innerHTML = `<div class="empty"><p>Poliçe eklediğinizde tür dağılımı, yaklaşan yenilemeler ve prim toplamı burada görünür.</p></div>`; return; }
+  const live = policies.filter(p => (daysLeft(p) ?? -1) >= 0);
+  const soon = live.filter(p => daysLeft(p) <= 30).sort((x, y) => x.end.localeCompare(y.end));
+  const expired = policies.filter(p => { const d = daysLeft(p); return d !== null && d < 0; });
+  const total = live.reduce((s, p) => s + (p.premium || 0), 0);
+  const byType = TYPES.map(t => [t, policies.filter(p => (p.type || 'Diğer') === t).length]).filter(x => x[1]);
+  const maxT = Math.max(...byType.map(x => x[1]), 1);
+  const t0 = today(), months = [];
+  for (let i = 0; i < 6; i++) {
+    const m = new Date(t0.getFullYear(), t0.getMonth() + i, 1);
+    const cnt = policies.filter(p => { const d = pd(p.end); return d && d.getFullYear() === m.getFullYear() && d.getMonth() === m.getMonth(); }).length;
+    months.push([`${MONTHS[m.getMonth()]} ${String(m.getFullYear()).slice(2)}`, cnt]);
+  }
+  const maxM = Math.max(...months.map(x => x[1]), 1);
+  const bars = (rows, max) => rows.map(([l, v]) => `<div class="bar"><span>${esc(l)}</span><div class="trk"><i style="width:${v / max * 100}%"></i></div><span>${v}</span></div>`).join('');
+  el.innerHTML = `<div style="display:flex;flex-direction:column;gap:14px">
+    <div class="kpis">
+      <div class="kpi"><small>Toplam poliçe</small><strong>${policies.length}</strong></div>
+      <div class="kpi"><small>Yürürlükte</small><strong>${live.length}</strong></div>
+      <div class="kpi"><small>30 günde bitecek</small><strong>${soon.length}</strong></div>
+      <div class="kpi"><small>Süresi dolmuş</small><strong>${expired.length}</strong></div>
+    </div>
+    <div class="panel"><h3>Yürürlükteki poliçelerin toplam primi</h3><strong style="font:700 24px var(--display);font-variant-numeric:tabular-nums">${esc(money(total))}</strong></div>
+    <div class="panel"><h3>Türe göre poliçe sayısı</h3>${bars(byType, maxT)}</div>
+    <div class="panel"><h3>Aylara göre biten poliçe sayısı</h3>${bars(months, maxM)}</div>
+    <div class="panel"><h3>Yenilemesi yaklaşanlar (30 gün)</h3>${soon.length ? soon.slice(0, 12).map(p =>
+      `<div class="mini"><span>${esc(p.name)} · ${esc(p.type)}</span><span>${esc(fmtDate(p.end))}</span></div>`).join('') : '<p style="margin:0;color:var(--muted)">Önümüzdeki 30 günde biten poliçe yok.</p>'}</div>
+  </div>`;
+}
+
+function renderAll() { renderList(); if (st.tab === 'analizler') renderStats(); }
+
+/* ---------- tabs ---------- */
+function route() {
+  const h = location.hash.slice(1);
+  st.tab = ['policeler','analizler','asistan'].includes(h) ? h : 'policeler';
+  for (const t of ['policeler','analizler','asistan']) $('#v-' + t).hidden = t !== st.tab;
+  document.querySelectorAll('.nav a').forEach(a => a.dataset.tab === st.tab ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  if (st.tab === 'analizler') renderStats();
+  window.scrollTo(0, 0);
+}
+
+/* ---------- sheet & modal ---------- */
+let sheetToken = 0;
+function openSheet(title, body, actions = '') {
+  sheetToken++;
+  $('#sheetTitle').textContent = title; $('#sheetBody').innerHTML = body; $('#sheetActions').innerHTML = actions;
+  $('#sheet').hidden = false; $('#sheetBody').scrollTop = 0;
+}
+function closeSheet() { sheetToken++; $('#sheet').hidden = true; $('#sheetBody').innerHTML = ''; form = null; }
+function modal(html) {
+  return new Promise(res => {
+    const m = $('#modal'), c = $('#modalCard');
+    c.innerHTML = html; m.hidden = false;
+    const done = v => { m.hidden = true; m.onclick = null; res(v); };
+    m.onclick = e => {
+      if (e.target === m) return done(null);
+      const b = e.target.closest('[data-m]'); if (b) done(b.dataset.m);
+    };
+  });
+}
+const confirmBox = (msg, ok = 'Sil') => modal(`<h2>Emin misiniz?</h2><p>${esc(msg)}</p>
+  <div class="row" style="justify-content:flex-end"><button class="btn" data-m="">Vazgeç</button><button class="btn danger" data-m="ok">${esc(ok)}</button></div>`).then(v => v === 'ok');
+
+/* ---------- detail ---------- */
+function openDetail(id) {
+  const p = policies.find(x => x.id === id); if (!p) return;
+  const s = status(p);
+  const row = (l, v) => `<div><small>${l}</small><span>${esc(v || '—')}</span></div>`;
+  openSheet('Poliçe detayı', `
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:start"><h2 style="overflow-wrap:anywhere;min-width:0">${esc(p.name)}</h2><span class="badge ${s.key}">${esc(s.label)}</span></div>
+    <div class="dl">${row('Sigortalı adı', p.name)}${row('Poliçe türü', p.type)}${row('Sigorta şirketi', p.company)}${row('Poliçe numarası', p.policyNo)}
+      ${row('Başlangıç tarihi', fmtDate(p.start))}${row('Bitiş tarihi', fmtDate(p.end))}${row('Toplam prim', money(p.premium))}
+      ${p.plate ? row('Plaka', p.plate) : ''}${p.phone ? row('Telefon', p.phone) : ''}${p.note ? row('Not', p.note) : ''}</div>
+    ${p.fileId ? `<div class="file">${ic('doc')}<span>${esc(p.fileName || 'Poliçe dosyası')}</span>
+      <button class="btn" data-act="dl" data-id="${esc(p.id)}">${ic('down')}İndir</button></div>` : ''}
+    <button class="btn pri block" data-act="share" data-id="${esc(p.id)}">${ic('share')}Müşteriyle paylaş</button>
+    <button class="btn danger block" data-act="del" data-id="${esc(p.id)}">Poliçeyi sil</button>`,
+    `<button class="iconbtn plain" data-act="share" data-id="${esc(p.id)}" aria-label="Paylaş">${ic('share')}</button>
+     ${p.fileId ? `<button class="iconbtn plain" data-act="dl" data-id="${esc(p.id)}" aria-label="Dosyayı indir">${ic('down')}</button>` : ''}
+     <button class="iconbtn plain" data-act="edit" data-id="${esc(p.id)}" aria-label="Düzenle">${ic('edit')}</button>`);
+}
+const fileExt = p => p.fileType === 'application/pdf' ? 'pdf' : p.fileType === 'image/png' ? 'png' : p.fileType === 'image/webp' ? 'webp' : 'jpg';
+const clean = s => String(s || '').replace(/[^\p{L}\p{N}]+/gu, '_').replace(/^_|_$/g, '');
+async function getFile(p) {
+  if (!p.fileId || st.mode !== 'idb') return null;
+  const r = await idb.get('files', p.fileId); if (!r) return null;
+  return new File([r.buf], `${clean(p.name) || 'police'}_${clean(p.type) || 'Police'}.${fileExt(p)}`, {type: r.type});
+}
+async function downloadFile(p) {
+  try { const f = await getFile(p); if (!f) return toast('Dosya bulunamadı.'); await saveFile(f); }
+  catch (e) { if (!e || e.code !== 'declined') toast('Dosya açılamadı.'); }
+}
+function shareText(p) {
+  return [`Sayın ${p.name},`, `${p.type || ''} poliçenizin bilgileri:`,
+    p.company && `Sigorta şirketi: ${p.company}`, p.policyNo && `Poliçe no: ${p.policyNo}`, p.plate && `Plaka: ${p.plate}`,
+    p.start && `Başlangıç: ${fmtDate(p.start)}`, p.end && `Bitiş: ${fmtDate(p.end)}`,
+    typeof p.premium === 'number' && `Toplam prim: ${money(p.premium)}`].filter(Boolean).join('\n');
+}
+async function sharePolicy(p) {
+  const text = shareText(p), enc = encodeURIComponent(text);
+  let ph = String(p.phone || '').replace(/\D/g, '');
+  if (ph.length === 11 && ph.startsWith('0')) ph = '9' + ph; else if (ph.length === 10) ph = '90' + ph;
+  const file = await getFile(p).catch(() => null);          // read before the tap so the share sheet opens straight from it
+  const canFile = file && touch() && navigator.canShare && navigator.canShare({files:[file]});
+  const v = await modal(`<h2>Müşteriyle paylaş</h2><pre id="shareTxt">${esc(text)}</pre>
+    ${canFile ? `<button class="btn pri" data-m="file">${ic('share')}Poliçe dosyasını gönder</button>` : ''}
+    ${!canFile && navigator.share && touch() ? `<button class="btn pri" data-m="text">${ic('share')}Bilgileri gönder</button>` : ''}
+    <a class="btn" href="https://wa.me/${ph.length >= 11 ? ph : ''}?text=${enc}" target="_blank" rel="noopener" data-m="wa">WhatsApp'ta yaz</a>
+    <div class="row"><a class="btn" style="flex:1" href="mailto:?subject=${encodeURIComponent((p.type || '') + ' poliçeniz')}&body=${enc}" data-m="mail">E-posta</a>
+      <a class="btn" style="flex:1" href="sms:${esc(String(p.phone || '').replace(/[^\d+]/g, ''))}&body=${enc}" data-m="sms">Mesaj</a>
+      <button class="btn" style="flex:1" data-m="copy">Kopyala</button></div>
+    ${file && !canFile ? `<button class="btn" data-m="dl">${ic('down')}Poliçe dosyasını indir</button>` : ''}
+    <p style="font-size:12.5px">${canFile ? '"Poliçe dosyasını gönder" telefonun paylaşım menüsünü açar; WhatsApp, Mail veya Mesajlar\'ı oradan seçin.' : 'Göndermek için internet gerekir.'}</p>
+    <button class="btn" data-m="">Kapat</button>`);
+  try {
+    if (v === 'file') await navigator.share({files:[file], text});
+    else if (v === 'text') await navigator.share({text});
+    else if (v === 'dl') await saveFile(file);
+    else if (v === 'copy') { await navigator.clipboard.writeText(text); toast('Metin kopyalandı'); }
+  } catch (e) { if (v === 'copy') toast('Kopyalanamadı. Metni seçip elle kopyalayın.'); }
+}
+
+/* ---------- add / edit form ---------- */
+let form = null;
+function formHTML(p) {
+  const v = k => esc(p[k] ?? '');
+  const f = (id, label, input, half) => `<div class="fld${half ? ' half' : ''}"><label for="f-${id}">${label}</label>${input}</div>`;
+  return `<form class="pf" id="pForm" novalidate>
+    ${f('name', 'Sigortalı adı', `<input id="f-name" required value="${v('name')}" autocomplete="off">`)}
+    ${f('type', 'Poliçe türü', `<select id="f-type">${TYPES.map(t => `<option${(p.type || 'Kasko') === t ? ' selected' : ''}>${t}</option>`).join('')}</select>`, 1)}
+    ${f('plate', 'Plaka (varsa)', `<input id="f-plate" value="${v('plate')}" autocomplete="off">`, 1)}
+    ${f('company', 'Sigorta şirketi', `<input id="f-company" value="${v('company')}" autocomplete="off">`)}
+    ${f('no', 'Poliçe numarası', `<input id="f-no" value="${v('policyNo')}" autocomplete="off" inputmode="numeric">`)}
+    ${f('start', 'Başlangıç tarihi', `<input id="f-start" type="date" value="${v('start')}">`, 1)}
+    ${f('end', 'Bitiş tarihi', `<input id="f-end" type="date" required value="${v('end')}">`, 1)}
+    ${f('premium', 'Toplam prim (₺)', `<input id="f-premium" inputmode="decimal" value="${typeof p.premium === 'number' ? esc(new Intl.NumberFormat('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}).format(p.premium)) : ''}" autocomplete="off">`, 1)}
+    ${f('phone', 'Müşteri telefonu', `<input id="f-phone" type="tel" value="${v('phone')}" autocomplete="off">`, 1)}
+    ${f('note', 'Not', `<textarea id="f-note" rows="2">${v('note')}</textarea>`)}
+    <div class="full" id="fileRow"></div>
+    <p class="full" id="formErr" style="margin:0;color:var(--crit)" hidden></p>
+    <button class="btn pri block full" id="saveBtn" type="submit">Poliçeyi kaydet</button>
+  </form>`;
+}
+function renderFileRow() {
+  const el = $('#fileRow'); if (!el || !form) return;
+  const name = form.file ? form.file.name : (form.base.fileId && !form.removeFile ? (form.base.fileName || 'Poliçe dosyası') : '');
+  if (name) el.innerHTML = `<div class="file">${ic('doc')}<span>${esc(name)}${form.file && !cap.assets ? ' (bu tarayıcıda saklanamaz, yalnızca bilgiler kaydedilir)' : ''}</span>
+    <button class="btn" type="button" data-act="rm-file">Kaldır</button></div>`;
+  else el.innerHTML = cap.assets ? `<button class="btn block" type="button" data-act="pick">${ic('up')}Poliçe dosyası ekle (PDF veya fotoğraf)</button>` : '';
+}
+function openForm(p, mode) {
+  const edit = !!(p && p.id);
+  const upload = `<div class="seg" id="seg"><button type="button" data-mode="pdf">PDF ile yükle</button><button type="button" data-mode="man">Elle ekle</button></div>
+    <div class="up" id="upCard">${ic('doc')}<h3>Poliçe dosyasını yükleyin</h3><p>PDF ya da poliçenin fotoğrafı, en fazla 30 MB.</p>
+      <button class="btn pri" type="button" data-act="pick">${ic('up')}Dosya seç</button></div>
+    <div class="hint" id="aiHint">${ic('spark')}<span id="aiMsg">PDF'in içindeki yazıdan bulunan alanlar otomatik doldurulur. Kaydetmeden önce siz kontrol edersiniz.</span></div>`;
+  openSheet(edit ? 'Poliçeyi düzenle' : 'Yeni poliçe ekle',
+    `${edit ? '' : upload}<input type="file" id="fileIn" accept="application/pdf,image/jpeg,image/png,image/webp" hidden>${formHTML(p || {})}`);
+  form = {id: edit ? p.id : null, base: p || {}, file:null, removeFile:false, token:sheetToken};
+  renderFileRow();
+  if (!edit) setMode(mode || 'pdf');
+}
+function setMode(m) {
+  document.querySelectorAll('#seg button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  const pdf = m === 'pdf';
+  $('#upCard').hidden = !pdf; $('#aiHint').hidden = !pdf;
+  $('#pForm').hidden = pdf && !form.file;
+}
+function aiMsg(text, busy) {
+  const h = $('#aiHint'); if (!h) return;
+  h.hidden = false;
+  h.innerHTML = `${busy ? '<div class="spin"></div>' : ic('spark')}<span>${esc(text)}</span>`;
+}
+async function readPdf(file) {
+  if (!window.pdfjsLib) throw new Error('nopdf');
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+  const pdf = await window.pdfjsLib.getDocument({data: await file.arrayBuffer()}).promise;
+  let text = '';
+  for (let i = 1; i <= Math.min(pdf.numPages, 6); i++) {
+    const tc = await (await pdf.getPage(i)).getTextContent();
+    text += tc.items.map(it => it.str + (it.hasEOL ? '\n' : ' ')).join('') + '\n';
+  }
+  return text;
+}
+// Best-effort field finder for Turkish policy text. Works on the device, no internet.
+function guess(text) {
+  const t = text.replace(/[ \t]+/g, ' '), L = low(t), out = {};
+  const D = '(\\d{1,2})[./-](\\d{1,2})[./-](\\d{4})';
+  const toIso = m => { const d = +m[0], mo = +m[1], y = +m[2]; return d >= 1 && d <= 31 && mo >= 1 && mo <= 12 && y > 1990 && y < 2100 ? `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}` : null; };
+  const after = label => { const m = new RegExp(label + '[^\\d\\n]{0,25}' + D, 'i').exec(t); return m ? toIso(m.slice(1)) : null; };
+  out.start = after('ba[şs]lang[ıi][çc]'); out.end = after('biti[şs]');
+  if (!out.start || !out.end) {
+    const all = [...t.matchAll(new RegExp(D, 'g'))].map(m => toIso(m.slice(1))).filter(Boolean);
+    const pair = all.find(a => all.includes(`${+a.slice(0, 4) + 1}${a.slice(4)}`));
+    if (pair) { out.start = out.start || pair; out.end = out.end || `${+pair.slice(0, 4) + 1}${pair.slice(4)}`; }
+  }
+  let m = /poli[çc]e\s*(?:no|numaras[ıi])\s*[:.]?\s*([A-Z0-9][A-Z0-9\-\/]{3,24})/i.exec(t); if (m) out.policyNo = m[1];
+  m = /(?:[öo]denecek\s*(?:toplam\s*)?(?:prim|tutar)|toplam\s*(?:br[üu]t\s*)?prim|br[üu]t\s*prim|toplam\s*tutar)[^\d\n]{0,20}(\d{1,3}(?:\.\d{3})*,\d{2}|\d+,\d{2})/i.exec(t);
+  if (m) out.premium = m[1];
+  m = /plaka[^\n]{0,20}?\b(0[1-9]|[1-7]\d|8[01])\s?([A-ZÇĞİÖŞÜ]{1,3})\s?(\d{2,4})\b/i.exec(t) || /\b(0[1-9]|[1-7]\d|8[01]) ([A-ZÇĞİÖŞÜ]{1,3}) (\d{2,4})\b/.exec(t);
+  if (m) out.plate = `${m[1]} ${m[2].toLocaleUpperCase('tr')} ${m[3]}`;
+  const kinds = [['dask','DASK'],['zorunlu deprem','DASK'],['kasko','Kasko'],['zorunlu mali','Trafik'],['trafik','Trafik'],['sağlık','Sağlık'],['seyahat','Seyahat'],['işyeri','İşyeri'],['iş yeri','İşyeri'],['konut','Konut']];
+  const k = kinds.map(([w, n]) => [L.indexOf(w), n]).filter(x => x[0] >= 0).sort((a, b) => a[0] - b[0])[0]; if (k) out.type = k[1];
+  m = /([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü.&\-]*(?: [A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü.&\-]*){0,3} S[İi]GORTA(?: A\.? ?Ş\.?)?)/.exec(t); if (m) out.company = m[1].trim();
+  m = /sigortal[ıi](?:n[ıi]n)?\s*(?:ad[ıi]\s*(?:soyad[ıi])?)?\s*(?:[\/,]?\s*[üu]nvan[ıi])?\s*[:.]\s*([^\n]{3,60})/i.exec(t);
+  if (m) out.name = m[1].split(/ {2,}|\s(?:T\.?C\.?|Adres|Vergi|Tel)/i)[0].trim();
+  return out;
+}
+function fillForm(d) {
+  if (!d || typeof d !== 'object') return 0;
+  let n = 0;
+  const set = (id, val) => { if (val === null || val === undefined || val === '') return; const el = $('#f-' + id); if (!el) return; el.value = val; if (el.value) { el.classList.add('ai'); n++; } };
+  const isoOk = s => typeof s === 'string' && pd(s.trim()) ? s.trim() : null;
+  set('name', d.name && String(d.name).slice(0, 120));
+  set('type', TYPES.includes(d.type) ? d.type : (d.type ? 'Diğer' : null));
+  set('company', d.company && String(d.company).slice(0, 120));
+  set('no', d.policyNo !== null && d.policyNo !== undefined ? String(d.policyNo).slice(0, 60) : null);
+  set('start', isoOk(d.start)); set('end', isoOk(d.end));
+  const pm = parseMoney(d.premium);
+  set('premium', pm !== null ? new Intl.NumberFormat('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}).format(pm) : null);
+  set('plate', d.plate && String(d.plate).slice(0, 20)); set('phone', d.phone && String(d.phone).slice(0, 20));
+  return n;
+}
+async function handleFile(file) {
+  if (!file || !form) return;
+  const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+  const isImg = /^image\/(jpeg|png|webp)$/.test(file.type);
+  if (!isPdf && !isImg) { toast('Yalnızca PDF, JPG, PNG veya WebP yükleyebilirsiniz.'); return; }
+  if (file.size > 30 * 1048576) { toast('Dosya 30 MB sınırını aşıyor.'); return; }
+  form.file = file; form.fileType = isPdf ? 'application/pdf' : file.type; form.removeFile = false;
+  renderFileRow();
+  const tk = form.token, up = $('#upCard');
+  if (!up || up.hidden) return;                 // attached by hand: nothing to read
+  up.hidden = true;
+  let msg = 'Fotoğraftaki yazı okunamaz. Alanları elle doldurun; fotoğraf poliçeye eklenir.';
+  if (isPdf) {
+    aiMsg('Poliçe okunuyor…', true);
+    try {
+      const text = await readPdf(file);
+      if (!form || form.token !== tk) return;
+      if (text.replace(/\s/g, '').length < 80) msg = 'Bu PDF taranmış bir görüntü, içinde okunabilir yazı yok. Alanları elle doldurun; dosya poliçeye eklenir.';
+      else { const n = fillForm(guess(text)); msg = n ? `${n} alan dolduruldu (mor çerçeveli). Yanlış okunmuş olabilir, kaydetmeden önce mutlaka kontrol edin.` : 'Dosyadan bilgi çıkarılamadı. Alanları elle doldurun.'; }
+    } catch { if (!form || form.token !== tk) return; msg = 'PDF okunamadı. Alanları elle doldurun; dosya poliçeye eklenir.'; }
+  }
+  aiMsg(msg); $('#pForm').hidden = false;
+}
+async function submitForm() {
+  if (!form) return;
+  const g = id => $('#f-' + id).value.trim(), err = $('#formErr'), btn = $('#saveBtn');
+  const fail = m => { err.textContent = m; err.hidden = false; };
+  err.hidden = true;
+  if (!g('name')) return fail('Sigortalı adını yazın.');
+  if (!pd(g('end'))) return fail('Bitiş tarihini seçin.');
+  if (g('start') && g('start') > g('end')) return fail('Bitiş tarihi başlangıçtan önce olamaz.');
+  const pm = g('premium') ? parseMoney(g('premium')) : null;
+  if (g('premium') && pm === null) return fail('Prim tutarını sayı olarak yazın, örneğin 12.480,00.');
+  const b = form.base;
+  const data = {kind:'policy', name:g('name'), type:g('type'), company:g('company'), policyNo:g('no'), start:g('start'), end:g('end'),
+    plate:g('plate'), phone:g('phone'), note:g('note'), createdAt: b.createdAt || Date.now(), updatedAt: Date.now()};
+  if (pm !== null) data.premium = pm;
+  if (b.fileId && !form.removeFile && !form.file) Object.assign(data, {fileId:b.fileId, fileName:b.fileName || '', fileType:b.fileType || ''});
+  btn.disabled = true; btn.textContent = 'Kaydediliyor…';
+  let fileNote = '';
+  try {
+    if (form.file && cap.assets) {
+      try {
+        const r = await cap.assets.upload(form.file, {type: form.fileType});
+        Object.assign(data, {fileId:r.id, fileName:form.file.name.slice(0, 120), fileType:form.fileType});
+      } catch (e) { fileNote = e && e.code === 'too_large' ? ' Dosya çok büyük olduğu için eklenemedi.' : ' Dosya yüklenemedi, yalnızca bilgiler kaydedildi.'; }
+    }
+    const id = await savePolicy(form.id, data);
+    if (b.fileId && b.fileId !== data.fileId && cap.assets) cap.assets.delete(b.fileId).catch(() => {});
+    closeSheet(); toast('Poliçe kaydedildi.' + fileNote);
+    if (!col) openDetail(id);
+  } catch (e) {
+    if (data.fileId && data.fileId !== b.fileId && cap.assets) cap.assets.delete(data.fileId).catch(() => {});
+    btn.disabled = false; btn.textContent = 'Poliçeyi kaydet'; writeErr(e);
+  }
+}
+
+/* ---------- samples, export, settings ---------- */
+async function loadSamples() {
+  const t = today(), d = n => iso(addDays(t, n));
+  const mk = (name, type, company, no, endIn, premium, plate) => ({kind:'policy', sample:true, name, type, company, policyNo:no,
+    start:d(endIn - 365), end:d(endIn), premium, plate:plate || '', phone:'', note:'', createdAt:Date.now()});
+  const rows = [
+    mk('Defne Karaca', 'Kasko', 'Örnek Sigorta A.Ş.', '41870233', 6, 14250, '34 ORN 101'),
+    mk('Tolga Erdem', 'Trafik', 'Deneme Sigorta A.Ş.', '77012946', 12, 5870.4, '06 ORN 202'),
+    mk('Selin Aktaş', 'DASK', 'Numune Sigorta A.Ş.', '30558812', 19, 980),
+    mk('Onur Bilgin', 'Konut', 'Örnek Sigorta A.Ş.', '52099374', 41, 2360.75),
+    mk('Kardelen Tekstil Ltd. Şti.', 'İşyeri', 'Deneme Sigorta A.Ş.', '88341507', 95, 21400),
+    mk('Melis Uysal', 'Sağlık', 'Numune Sigorta A.Ş.', '19263480', 180, 31750),
+    mk('Barış Özdemir', 'Kasko', 'Örnek Sigorta A.Ş.', '64470925', 290, 18990, '35 ORN 303'),
+    mk('Gizem Sarı', 'Trafik', 'Deneme Sigorta A.Ş.', '25816039', -9, 4920, '16 ORN 404'),
+  ];
+  try { for (const r of rows) await savePolicy(null, r); toast('8 örnek poliçe eklendi'); } catch (e) { writeErr(e); }
+}
+async function exportCsv() {
+  const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  const head = ['Sigortalı','Tür','Sigorta şirketi','Poliçe no','Başlangıç','Bitiş','Prim (TL)','Plaka','Telefon','Not'];
+  const lines = [head.map(q).join(';')].concat(policies.map(p =>
+    [p.name, p.type, p.company, p.policyNo, p.start, p.end, typeof p.premium === 'number' ? String(p.premium).replace('.', ',') : '', p.plate, p.phone, p.note].map(q).join(';')));
+  try { await cap.downloads.save({filename:'policeler.csv', data:'\uFEFF' + lines.join('\r\n')}); }
+  catch (e) { if (!e || e.code !== 'declined') toast('Dosya kaydedilemedi.'); }
+}
+const b64 = buf => { const u = new Uint8Array(buf); let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
+const unb64 = s => { const bin = atob(s), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u.buffer; };
+async function exportBackup() {
+  try {
+    const files = st.mode === 'idb' ? (await idb.all('files')).map(f => ({id:f.id, name:f.name, type:f.type, b64:b64(f.buf)})) : [];
+    await cap.downloads.save({filename:`police-defterim-yedek-${iso(today())}.json`, data: JSON.stringify({app:'police-defterim', v:1, policies, files})});
+  } catch (e) { if (!e || e.code !== 'declined') toast('Yedek alınamadı.'); }
+}
+async function importBackup(file) {
+  try {
+    const d = JSON.parse(await file.text());
+    if (!d || d.app !== 'police-defterim' || !Array.isArray(d.policies)) throw 0;
+    if (st.mode === 'idb') for (const f of d.files || []) if (f && f.id && f.b64) await idb.put('files', {id:String(f.id), name:String(f.name || ''), type:String(f.type || ''), buf:unb64(f.b64)});
+    let n = 0;
+    for (const p of d.policies) if (p && p.id && p.kind === 'policy') { await savePolicy(String(p.id), p); n++; }
+    closeSheet(); toast(`${n} poliçe yedekten yüklendi`);
+  } catch { toast('Bu dosya bir Poliçe Defterim yedeği değil ya da bozuk.'); }
+}
+function openSettings() {
+  const hasSamples = policies.some(p => p.sample);
+  openSheet('Ayarlar', `
+    <div class="dl">
+      <div><small>Veriler nerede</small><span>Yalnızca bu telefonda. İnternete gönderilmez; bu yüzden başka cihazda görünmez ve uygulama silinirse kaybolur.</span></div>
+      <div><small>Yedek</small><span>Arada bir yedek alıp Dosyalar'a veya e-postanıza kaydedin. Telefon değişince "Yedekten yükle" ile geri getirirsiniz.</span></div>
+    </div>
+    <button class="btn pri block" data-act="backup">${ic('down')}Yedek al (poliçeler ve dosyalar)</button>
+    <button class="btn block" data-act="restore">${ic('up')}Yedekten yükle</button>
+    <input type="file" id="impIn" accept="application/json,.json" hidden>
+    ${policies.length ? `<button class="btn block" data-act="csv">${ic('down')}Poliçe listesini Excel için indir (CSV)</button>` : ''}
+    ${hasSamples ? `<button class="btn block" data-act="rm-samples">Örnek poliçeleri sil</button>` : `<button class="btn block" data-act="samples">Örnek poliçeleri yükle</button>`}
+    ${policies.length ? `<button class="btn danger block" data-act="wipe">Tüm poliçeleri sil</button>` : ''}`);
+}
+async function removeMany(arr, label) {
+  if (!arr.length) return;
+  try { for (const p of arr) await removePolicy(p); toast(label); } catch (e) { writeErr(e); }
+}
+
+/* ---------- ready-made queries (computed on the phone) ---------- */
+const QUERIES = {
+  'Bu ay bitenler': () => { const t = today(); return listOut(policies.filter(p => { const d = pd(p.end); return d && d.getFullYear() === t.getFullYear() && d.getMonth() === t.getMonth(); }), 'Bu ay biten'); },
+  '30 günde bitecekler': () => listOut(policies.filter(p => { const d = daysLeft(p); return d !== null && d >= 0 && d <= 30; }), 'Önümüzdeki 30 günde biten'),
+  'Süresi dolmuşlar': () => listOut(policies.filter(p => { const d = daysLeft(p); return d !== null && d < 0; }), 'Süresi dolmuş'),
+  'Türlere göre prim': () => { const rows = TYPES.map(t => [t, policies.filter(p => (p.type || 'Diğer') === t)]).filter(x => x[1].length);
+    return rows.length ? rows.map(([t, a]) => `${t} · ${a.length} poliçe · ${money(a.reduce((s, p) => s + (p.premium || 0), 0))}`).join('\n') : 'Defterde poliçe yok.'; },
+  'Şirketlere göre sayı': () => { const m = {}; policies.forEach(p => { const k = p.company || 'Şirket belirtilmedi'; m[k] = (m[k] || 0) + 1; });
+    const rows = Object.entries(m).sort((a, b) => b[1] - a[1]); return rows.length ? rows.map(([k, n]) => `${k} · ${n} poliçe`).join('\n') : 'Defterde poliçe yok.'; },
+};
+function listOut(a, label) {
+  if (!a.length) return `${label} poliçe yok.`;
+  a.sort((x, y) => (x.end || '').localeCompare(y.end || ''));
+  return `${label} ${a.length} poliçe var:\n` + a.map(p => `${p.name} · ${p.type} · ${fmtDate(p.end)}${p.phone ? ' · ' + p.phone : ''}`).join('\n');
+}
+function setupQueries() {
+  $('#chips').innerHTML = Object.keys(QUERIES).map(t => `<button class="pill" type="button" data-q="${esc(t)}">${esc(t)}</button>`).join('');
+  $('#chat').innerHTML = `<div class="msg ai">Bir sorgu seçin. Sonuçlar bu telefondaki poliçelerden hesaplanır, internet gerekmez.</div>`;
+}
+function ask(q) {
+  if (!QUERIES[q]) return;
+  const chat = $('#chat'); chat.innerHTML = '';
+  const me = document.createElement('div'); me.className = 'msg me'; me.textContent = q;
+  const out = document.createElement('div'); out.className = 'msg ai'; out.textContent = QUERIES[q]();
+  chat.append(me, out);
+}
+
+/* ---------- events ---------- */
+$('#fType').innerHTML = '<option value="">Tüm türler</option>' + TYPES.map(t => `<option>${t}</option>`).join('');
+['q','fType','fStatus','sort'].forEach(id => $('#' + id).addEventListener('input', renderList));
+$('#selBtn').onclick = () => { st.selecting = !st.selecting; st.selected.clear(); renderList(); };
+$('#bulkCancel').onclick = () => { st.selecting = false; st.selected.clear(); renderList(); };
+$('#bulkDel').onclick = async () => {
+  const arr = policies.filter(p => st.selected.has(p.id));
+  if (!arr.length || !await confirmBox(`${arr.length} poliçe ve ekli dosyaları kalıcı olarak silinecek.`)) return;
+  st.selecting = false; st.selected.clear(); await removeMany(arr, `${arr.length} poliçe silindi`); renderList();
+};
+$('#addBtn').onclick = () => openForm(null, 'pdf');
+$('#settingsBtn').onclick = openSettings;
+$('#sheetBack').onclick = closeSheet;
+$('#sheet').addEventListener('click', e => { if (e.target.id === 'sheet') closeSheet(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#modal').hidden && !$('#sheet').hidden) closeSheet(); });
+window.addEventListener('hashchange', route);
+$('#chips').addEventListener('click', e => { const b = e.target.closest('[data-q]'); if (b) ask(b.dataset.q); });
+
+$('#list').addEventListener('click', e => {
+  const act = e.target.closest('[data-act]');
+  if (act) return doAct(act.dataset.act, act);
+  const c = e.target.closest('.card'); if (!c) return;
+  if (st.selecting) { const id = c.dataset.id; st.selected.has(id) ? st.selected.delete(id) : st.selected.add(id); renderList(); }
+  else openDetail(c.dataset.id);
+});
+const sheetEl = $('#sheet');
+sheetEl.addEventListener('click', e => {
+  const m = e.target.closest('[data-mode]'); if (m && form) return setMode(m.dataset.mode);
+  const act = e.target.closest('[data-act]'); if (act) doAct(act.dataset.act, act);
+});
+sheetEl.addEventListener('submit', e => { if (e.target.id === 'pForm') { e.preventDefault(); submitForm(); } });
+sheetEl.addEventListener('change', e => { if (e.target.id === 'fileIn') { handleFile(e.target.files[0]); e.target.value = ''; } else if (e.target.id === 'impIn') importBackup(e.target.files[0]); });
+sheetEl.addEventListener('input', e => { if (e.target.classList && e.target.classList.contains('ai')) e.target.classList.remove('ai'); });
+sheetEl.addEventListener('dragover', e => { const u = $('#upCard'); if (u && !u.hidden) { e.preventDefault(); u.classList.add('drag'); } });
+sheetEl.addEventListener('dragleave', () => { const u = $('#upCard'); if (u) u.classList.remove('drag'); });
+sheetEl.addEventListener('drop', e => { const u = $('#upCard'); if (u && !u.hidden) { e.preventDefault(); u.classList.remove('drag'); handleFile(e.dataTransfer.files[0]); } });
+
+async function doAct(act, el) {
+  const p = el.dataset.id ? policies.find(x => x.id === el.dataset.id) : null;
+  if (act === 'add-pdf') openForm(null, 'pdf');
+  else if (act === 'add-man') openForm(null, 'man');
+  else if (act === 'samples') { if (!$('#sheet').hidden) closeSheet(); loadSamples(); }
+  else if (act === 'clear') { $('#q').value = ''; $('#fType').value = ''; $('#fStatus').value = ''; renderList(); }
+  else if (act === 'pick') $('#fileIn').click();
+  else if (act === 'rm-file') { if (form) { form.file = null; form.removeFile = true; renderFileRow(); } }
+  else if (act === 'edit' && p) openForm(p);
+  else if (act === 'share' && p) sharePolicy(p);
+  else if (act === 'dl' && p) downloadFile(p);
+  else if (act === 'del' && p) {
+    if (await confirmBox(`${p.name} adına kayıtlı ${p.type} poliçesi${p.fileId ? ' ve ekli dosyası' : ''} kalıcı olarak silinecek.`)) {
+      try { await removePolicy(p); closeSheet(); toast('Poliçe silindi'); } catch (e) { writeErr(e); }
+    }
+  }
+  else if (act === 'csv') exportCsv();
+  else if (act === 'backup') exportBackup();
+  else if (act === 'restore') $('#impIn').click();
+  else if (act === 'rm-samples') { closeSheet(); removeMany(policies.filter(x => x.sample), 'Örnek poliçeler silindi'); }
+  else if (act === 'wipe') {
+    if (await confirmBox(`Defterdeki ${policies.length} poliçenin tümü ve ekli dosyaları kalıcı olarak silinecek.`, 'Tümünü sil')) { closeSheet(); removeMany(policies.slice(), 'Tüm poliçeler silindi'); }
+  }
+}
+
+route();
+boot();
+})();
+</script>
