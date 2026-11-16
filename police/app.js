@@ -136,7 +136,12 @@ async function boot() {
   } catch { st.mode = 'mem'; }
   st.loaded = true; renderAll();
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
-  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    const had = !!navigator.serviceWorker.controller; let done = false;
+    navigator.serviceWorker.register('sw.js', {updateViaCache:'none'}).then(r => r.update()).catch(() => {});
+    // A new version took over: show it right away unless a form is open.
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (had && !done && $('#sheet').hidden) { done = true; location.reload(); } });
+  }
 }
 
 /* ---------- policies list ---------- */
@@ -750,6 +755,7 @@ function openSettings() {
   const hasSamples = policies.some(p => p.sample), L = lockCfg();
   openSheet('Ayarlar', `
     <div class="dl">
+      <div><small>Sürüm</small><span>3 · müşteri kartı, takip, tahsilat, komisyon, teklif, hasar, Excel, kilit</span></div>
       <div><small>Veriler nerede</small><span>Yalnızca bu cihazda. İnternete gönderilmez; uygulama silinirse kaybolur, bu yüzden düzenli yedek alın.</span></div>
       <div><small>Telefon ve bilgisayar</small><span>Yedek dosyasını diğer cihazda "Yedekten yükle" ile açarak verileri taşırsınız.</span></div>
     </div>
