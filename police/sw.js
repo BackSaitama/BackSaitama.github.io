@@ -1,7 +1,7 @@
 // Offline shell. Pages and app code: fresh copy from the network when online, saved copy when offline.
 // Large libraries and icons never change, so they are served straight from the saved copy.
-const CACHE = 'police-defterim-v3';
-const FILES = ['./', 'index.html', 'app.js', 'xlsx.full.min.js', 'manifest.webmanifest', 'pdf.min.js', 'pdf.worker.min.js', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
+const CACHE = 'police-defterim-v4';
+const FILES = ['./', 'index.html', 'app.js', 'okuyucu.js', 'xlsx.full.min.js', 'manifest.webmanifest', 'pdf.min.js', 'pdf.worker.min.js', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', e => e.waitUntil(
   caches.open(CACHE).then(c => Promise.all(FILES.map(f => fetch(f, {cache: 'no-cache'}).then(r => { if (!r.ok) throw new Error(f); return c.put(f, r); })))).then(() => self.skipWaiting())));
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));

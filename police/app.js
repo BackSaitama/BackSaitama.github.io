@@ -8,7 +8,7 @@ const MONTHS = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','K
 const RENEW = [['', 'Aranmadı'], ['arandi', 'Arandı'], ['teklif', 'Teklif verildi'], ['yenilendi', 'Yenilendi'], ['kaybedildi', 'Kaybedildi']];
 const QSTAT = [['bekliyor', 'Bekliyor', 'warn'], ['kabul', 'Kabul edildi', 'ok'], ['ret', 'Reddedildi', 'crit']];
 const CSTAT = [['acik', 'Açık', 'warn'], ['eksper', 'Eksper aşamasında', 'warn'], ['odeme', 'Ödeme bekleniyor', 'warn'], ['kapandi', 'Kapandı', 'none']];
-const PLANS = [['', 'Ödeme takibi yok'], ['paid', 'Peşin, tahsil edildi'], ['cash', 'Peşin, tahsil edilecek']].concat([2,3,4,5,6,8,9,10,12].map(n => [String(n), `${n} taksit`]));
+const PLANS = [['', 'Ödeme takibi yok'], ['paid', 'Peşin, tahsil edildi'], ['cash', 'Peşin, tahsil edilecek']].concat([2,3,4,5,6,7,8,9,10,11,12].map(n => [String(n), `${n} taksit`]));
 
 /* ---------- dates, money ---------- */
 const today = () => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
@@ -483,7 +483,7 @@ function openForm(p, mode, extra) {
   const upload = `<div class="seg" id="seg"><button type="button" data-mode="pdf">PDF ile yükle</button><button type="button" data-mode="man">Elle ekle</button></div>
     <div class="up" id="upCard">${ic('doc')}<h3>Poliçe dosyasını yükleyin</h3><p>PDF ya da poliçenin fotoğrafı, en fazla 30 MB.</p>
       <button class="btn pri" type="button" data-act="pick">${ic('up')}Dosya seç</button></div>
-    <div class="hint" id="aiHint">${ic('spark')}<span>PDF'in içindeki yazıdan bulunan alanlar otomatik doldurulur. Kaydetmeden önce siz kontrol edersiniz.</span></div>`;
+    <div class="hint" id="aiHint">${ic('spark')}<span>Poliçeyi yükleyin; ad, şirket, poliçe no, tarihler, prim, plaka ve taksitler otomatik dolar. Kaydetmeden önce göz atın.</span></div>`;
   openSheet(edit ? 'Poliçeyi düzenle' : 'Yeni poliçe ekle',
     `${edit ? '' : upload}<input type="file" id="fileIn" accept="application/pdf,image/jpeg,image/png,image/webp" hidden>${formHTML(p || {})}`);
   form = {id: edit ? p.id : null, base: p || {}, file:null, removeFile:false, token:sheetToken, ...extra};
@@ -510,31 +510,7 @@ async function readPdf(file) {
   }
   return text;
 }
-const KINDS = [['dask','DASK'],['zorunlu deprem','DASK'],['kasko','Kasko'],['zorunlu mali','Trafik'],['trafik','Trafik'],['sağlık','Sağlık'],['saglik','Sağlık'],['seyahat','Seyahat'],['işyeri','İşyeri'],['iş yeri','İşyeri'],['isyeri','İşyeri'],['konut','Konut']];
-const kindFrom = s => { const L = low(s), k = KINDS.map(([w, n]) => [L.indexOf(w), n]).filter(x => x[0] >= 0).sort((a, b) => a[0] - b[0])[0]; return k ? k[1] : null; };
-// Best-effort field finder for Turkish policy text. Works on the device, no internet.
-function guess(text) {
-  const t = text.replace(/[ \t]+/g, ' '), out = {};
-  const D = '(\\d{1,2})[./-](\\d{1,2})[./-](\\d{4})';
-  const toIso = m => { const d = +m[0], mo = +m[1], y = +m[2]; return d >= 1 && d <= 31 && mo >= 1 && mo <= 12 && y > 1990 && y < 2100 ? `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}` : null; };
-  const after = label => { const m = new RegExp(label + '[^\\d\\n]{0,25}' + D, 'i').exec(t); return m ? toIso(m.slice(1)) : null; };
-  out.start = after('ba[şs]lang[ıi][çc]'); out.end = after('biti[şs]');
-  if (!out.start || !out.end) {
-    const all = [...t.matchAll(new RegExp(D, 'g'))].map(m => toIso(m.slice(1))).filter(Boolean);
-    const pair = all.find(a => all.includes(`${+a.slice(0, 4) + 1}${a.slice(4)}`));
-    if (pair) { out.start = out.start || pair; out.end = out.end || `${+pair.slice(0, 4) + 1}${pair.slice(4)}`; }
-  }
-  let m = /poli[çc]e\s*(?:no|numaras[ıi])\s*[:.]?\s*([A-Z0-9][A-Z0-9\-\/]{3,24})/i.exec(t); if (m) out.policyNo = m[1];
-  m = /(?:[öo]denecek\s*(?:toplam\s*)?(?:prim|tutar)|toplam\s*(?:br[üu]t\s*)?prim|br[üu]t\s*prim|toplam\s*tutar)[^\d\n]{0,20}(\d{1,3}(?:\.\d{3})*,\d{2}|\d+,\d{2})/i.exec(t);
-  if (m) out.premium = m[1];
-  m = /plaka[^\n]{0,20}?\b(0[1-9]|[1-7]\d|8[01])\s?([A-ZÇĞİÖŞÜ]{1,3})\s?(\d{2,4})\b/i.exec(t) || /\b(0[1-9]|[1-7]\d|8[01]) ([A-ZÇĞİÖŞÜ]{1,3}) (\d{2,4})\b/.exec(t);
-  if (m) out.plate = `${m[1]} ${m[2].toLocaleUpperCase('tr')} ${m[3]}`;
-  out.type = kindFrom(t);
-  m = /([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü.&\-]*(?: [A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü.&\-]*){0,3} S[İi]GORTA(?: A\.? ?Ş\.?)?)/.exec(t); if (m) out.company = m[1].trim();
-  m = /sigortal[ıi](?:n[ıi]n)?\s*(?:ad[ıi]\s*(?:soyad[ıi])?)?\s*(?:[\/,]?\s*[üu]nvan[ıi])?\s*[:.]\s*([^\n]{3,60})/i.exec(t);
-  if (m) out.name = m[1].split(/ {2,}|\s(?:T\.?C\.?|Adres|Vergi|Tel)/i)[0].trim();
-  return out;
-}
+const kindFrom = window.policeTur, guess = window.policeOku;   // okuyucu.js
 function fillForm(d) {
   let n = 0;
   const set = (id, val) => { if (val === null || val === undefined || val === '') return; const el = $('#f-' + id); if (!el) return; el.value = val; if (el.value) { el.classList.add('ai'); n++; } };
@@ -542,7 +518,9 @@ function fillForm(d) {
   set('company', d.company && String(d.company).slice(0, 120)); set('no', d.policyNo ? String(d.policyNo).slice(0, 60) : null);
   set('start', pd(d.start) ? d.start : null); set('end', pd(d.end) ? d.end : null);
   const pm = parseMoney(d.premium); set('premium', pm !== null ? nf.format(pm) : null);
-  set('plate', d.plate && String(d.plate).slice(0, 20));
+  set('plate', d.plate && String(d.plate).slice(0, 20)); set('phone', d.phone);
+  if (form) form.readInst = null;
+  if (form && d.installments && d.installments.length >= 2 && d.installments.length <= 12) { form.readInst = d.installments; set('plan', String(d.installments.length)); }
   return n;
 }
 async function handleFile(file) {
@@ -587,7 +565,9 @@ async function submitPolicy() {
     plate:g('plate'), phone:g('phone'), note:g('note'), payPlan:plan, renewal:b.renewal || '', createdAt: b.createdAt || Date.now(), updatedAt: Date.now()};
   if (b.sample) data.sample = true;
   if (pm !== null) data.premium = pm; if (rate !== null) data.commRate = rate; if (cm !== null) data.commission = cm;
-  data.installments = (b.id && b.payPlan === plan && b.premium === pm && b.start === data.start && b.installments) ? b.installments : makeInst(plan, pm, data.start);
+  const ri = form.readInst;
+  if (ri && plan === String(ri.length) && pm !== null && Math.abs(ri.reduce((s, x) => s + x.amount, 0) - pm) < 0.06) data.installments = ri.map(x => ({...x, paid:false}));   // dates and amounts as printed on the policy
+  else data.installments = (b.id && b.payPlan === plan && b.premium === pm && b.start === data.start && b.installments) ? b.installments : makeInst(plan, pm, data.start);
   if (b.fileId && !form.removeFile && !form.file) Object.assign(data, {fileId:b.fileId, fileName:b.fileName || '', fileType:b.fileType || ''});
   btn.disabled = true; btn.textContent = 'Kaydediliyor…';
   let note = '';
@@ -755,7 +735,7 @@ function openSettings() {
   const hasSamples = policies.some(p => p.sample), L = lockCfg();
   openSheet('Ayarlar', `
     <div class="dl">
-      <div><small>Sürüm</small><span>3 · müşteri kartı, takip, tahsilat, komisyon, teklif, hasar, Excel, kilit</span></div>
+      <div><small>Sürüm</small><span>4 · poliçe okuyucu yenilendi, müşteri kartı, takip, tahsilat, komisyon, teklif, hasar, Excel, kilit</span></div>
       <div><small>Veriler nerede</small><span>Yalnızca bu cihazda. İnternete gönderilmez; uygulama silinirse kaybolur, bu yüzden düzenli yedek alın.</span></div>
       <div><small>Telefon ve bilgisayar</small><span>Yedek dosyasını diğer cihazda "Yedekten yükle" ile açarak verileri taşırsınız.</span></div>
     </div>
